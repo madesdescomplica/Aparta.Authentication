@@ -1,8 +1,9 @@
 ﻿using DomainEntity = Aparta.Authentication.Domain.Entity;
+using Aparta.Authentication.Domain.Enum;
+using Aparta.Authentication.Domain.Exceptions;
 
 using FluentAssertions;
 using Xunit;
-using Aparta.Authentication.Domain.Enum;
 
 namespace Aparta.Authentication.UnitTests.Domain.Entity.Account;
 

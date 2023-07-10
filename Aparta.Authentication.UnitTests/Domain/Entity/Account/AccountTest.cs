@@ -136,4 +136,35 @@ public class AccountTest
         account.DocumentNumber.Should().Be(validAccount.DocumentNumber);
         account.DocumentNumber.Should().HaveLength(18);
     }
+
+    [Theory(DisplayName = nameof(Should_Throw_If_Receive_Incorrect_CNPJ_Number))]
+    [Trait("Domain", "Account - Aggregates")]
+    [MemberData(
+        nameof(AccountTestDataGenerator.GetInvalidsCNPJsNumbers),
+        parameters: 10,
+        MemberType = typeof(AccountTestDataGenerator)
+    )]
+    public void Should_Throw_If_Receive_Incorrect_CNPJ_Number(string documentNumber)
+    {
+        var clientType = ClientType.PJ;
+        var validAccount = _fixture.GetValidAccount(clientType);
+
+        Action action = ()
+            => new DomainEntity.Account(
+            clientType,
+            documentNumber,
+            validAccount.Name,
+            validAccount.Address,
+            validAccount.Phone,
+            validAccount.BankName,
+            validAccount.AgencyNumber,
+            validAccount.AccountNumber,
+            validAccount.TaxType,
+            validAccount.TaxRate
+        );
+
+        action.Should()
+            .Throw<EntityValidationException>()
+            .WithMessage("Invalid CNPJ number");
+    }
 }

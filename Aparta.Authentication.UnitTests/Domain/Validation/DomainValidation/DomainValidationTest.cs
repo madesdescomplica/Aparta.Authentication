@@ -103,7 +103,10 @@ public class DomainValidationTest
         string fieldName = Faker.Lorem.Word();
 
         Action action = ()
-            => Validations.DomainValidation.NotNull(target, fieldName);
+            => Validations.DomainValidation.NotNull(
+                target, 
+                fieldName
+            );
 
         action.Should().NotThrow();
     }
@@ -116,10 +119,29 @@ public class DomainValidationTest
         string fieldName = Faker.Lorem.Word();
 
         Action action = ()
-            => Validations.DomainValidation.NotNull(target, fieldName);
+            => Validations.DomainValidation.NotNull(
+                target, 
+                fieldName
+            );
 
         action.Should()
             .Throw<EntityValidationException>()
             .WithMessage($"{fieldName} should not be null");
+    }
+
+    [Fact(DisplayName = nameof(Should_Not_Throw_If_Not_Receive_Null_Or_Empty))]
+    [Trait("Domain", "DomainValidation - Validation")]
+    public void Should_Not_Throw_If_Not_Receive_Null_Or_Empty()
+    {
+        var target = Faker.Lorem.Paragraph().Replace(" ", "");
+        string fieldName = Faker.Lorem.Word();
+
+        Action action = ()
+            => Validations.DomainValidation.NotNullOrEmpty(
+                target, 
+                fieldName
+            );
+
+        action.Should().NotThrow();
     }
 }

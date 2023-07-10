@@ -33,4 +33,13 @@ public class DomainValidation
         }
     }
 
+    public static void NotNullOrEmpty(string? target, string fieldname)
+    {
+        if (string.IsNullOrWhiteSpace(target))
+        {
+            throw new EntityValidationException(
+                $"{fieldname} should not be empty or null"
+            );
+        }
+    }
 }

@@ -29,7 +29,7 @@ public class DomainValidationTest
     }
 
     [Fact(DisplayName = nameof(Should_Throw_If_Receive_Incorrect_CPF))]
-    [Trait("Domain", "Helpers - Validation")]
+    [Trait("Domain", "DomainValidation - Validation")]
     public void Should_Throw_If_Receive_Incorrect_CPF()
     {
         var clientType = ClientType.PF;
@@ -59,5 +59,22 @@ public class DomainValidationTest
             );
 
         action.Should().NotThrow();
+    }
+
+    [Fact(DisplayName = nameof(Should_Throw_If_Receive_Incorrect_CNPJ))]
+    [Trait("Domain", "DomainValidation - Validation")]
+    public void Should_Throw_If_Receive_Incorrect_CNPJ()
+    {
+        var clientType = ClientType.PJ;
+        string documentNumber = Faker.Company.Cnpj() + "1";
+        Action action = ()
+            => Validations.DomainValidation.ValidateCPFAndCNPJ(
+                clientType,
+                documentNumber
+            );
+
+        action.Should()
+            .Throw<EntityValidationException>()
+            .WithMessage("Invalid CNPJ number");
     }
 }

@@ -7,9 +7,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{41B13A6C-73A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{01FF6C61-B411-4704-8749-E9BCD8BAF934}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aparta.Authentication.UnitTests", "Aparta.Authentication.UnitTests\Aparta.Authentication.UnitTests.csproj", "{EB2AEF42-8743-43E3-9A99-AA64B8221E21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aparta.Authentication.UnitTests", "Aparta.Authentication.UnitTests\Aparta.Authentication.UnitTests.csproj", "{EB2AEF42-8743-43E3-9A99-AA64B8221E21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aparta.Authentication.Domain", "Aparta.Authentication.Domain\Aparta.Authentication.Domain.csproj", "{44D2F3C6-0ABB-4CE3-8B46-2648AD5DF39A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aparta.Authentication.Domain", "Aparta.Authentication.Domain\Aparta.Authentication.Domain.csproj", "{44D2F3C6-0ABB-4CE3-8B46-2648AD5DF39A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aparta.Authentication.Infra.Data.EF", "Aparta.Authentication.Infra.Data.EF\Aparta.Authentication.Infra.Data.EF.csproj", "{C987161E-CA80-40EE-A167-012E2CD2A672}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aparta.Authentication.IntegrationTests", "Aparta.Authentication.IntegrationTests\Aparta.Authentication.IntegrationTests.csproj", "{FFC1854A-2E1F-4F65-955D-6DBFF00708DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +29,14 @@ Global
 		{44D2F3C6-0ABB-4CE3-8B46-2648AD5DF39A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44D2F3C6-0ABB-4CE3-8B46-2648AD5DF39A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44D2F3C6-0ABB-4CE3-8B46-2648AD5DF39A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C987161E-CA80-40EE-A167-012E2CD2A672}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C987161E-CA80-40EE-A167-012E2CD2A672}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C987161E-CA80-40EE-A167-012E2CD2A672}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C987161E-CA80-40EE-A167-012E2CD2A672}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFC1854A-2E1F-4F65-955D-6DBFF00708DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFC1854A-2E1F-4F65-955D-6DBFF00708DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFC1854A-2E1F-4F65-955D-6DBFF00708DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFC1854A-2E1F-4F65-955D-6DBFF00708DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +44,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{EB2AEF42-8743-43E3-9A99-AA64B8221E21} = {01FF6C61-B411-4704-8749-E9BCD8BAF934}
 		{44D2F3C6-0ABB-4CE3-8B46-2648AD5DF39A} = {41B13A6C-73A6-46A6-99F8-BA352F3BEFD7}
+		{C987161E-CA80-40EE-A167-012E2CD2A672} = {41B13A6C-73A6-46A6-99F8-BA352F3BEFD7}
+		{FFC1854A-2E1F-4F65-955D-6DBFF00708DD} = {01FF6C61-B411-4704-8749-E9BCD8BAF934}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BD912CDB-F454-4B88-AD44-E9A0DF467A3E}

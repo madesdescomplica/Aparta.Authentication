@@ -2,6 +2,7 @@
 
 using FluentAssertions;
 using Xunit;
+using Aparta.Authentication.Domain.Enum;
 
 namespace Aparta.Authentication.UnitTests.Domain.Entity.Account;
 
@@ -50,5 +51,31 @@ public class AccountTest
         account.CreatedAt.Should().NotBeSameDateAs(default);
         (account.CreatedAt >= datetimeBefore).Should().BeTrue();
         (account.CreatedAt <= datetimeAfter).Should().BeTrue();
+    }
+
+    [Theory(DisplayName = nameof(Should_Receive_Correct_CPF_Number))]
+    [Trait("Domain", "Account - Aggregates")]
+    [InlineData(ClientType.PF)]
+    public void Should_Receive_Correct_CPF_Number(ClientType clientType)
+    {
+        var validAccount = _fixture.GetValidAccount(clientType);
+
+        var account = new DomainEntity.Account(
+            clientType,
+            validAccount.DocumentNumber,
+            validAccount.Name,
+            validAccount.Address,
+            validAccount.Phone,
+            validAccount.BankName,
+            validAccount.AgencyNumber,
+            validAccount.AccountNumber,
+            validAccount.TaxType,
+            validAccount.TaxRate
+        );
+
+        account.Should().NotBeNull();
+        account.ClientType.Should().Be(clientType);
+        account.DocumentNumber.Should().Be(validAccount.DocumentNumber);
+        account.DocumentNumber.Should().HaveLength(14);
     }
 }

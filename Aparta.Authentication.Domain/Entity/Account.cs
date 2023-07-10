@@ -1,5 +1,6 @@
 ﻿using Aparta.Authentication.Domain.Enum;
 using Aparta.Authentication.Domain.SeedWork;
+using Aparta.Authentication.Domain.Validation;
 
 namespace Aparta.Authentication.Domain.Entity;
 
@@ -41,5 +42,12 @@ public class Account : AggregateRoot
         TaxType = taxType;
         TaxRate = taxRate;
         CreatedAt = DateTime.Now;
+
+        Validate();
+    }
+
+    private void Validate()
+    {
+        DomainValidation.ValidateCPFAndCNPJ(ClientType, DocumentNumber);
     }
 }

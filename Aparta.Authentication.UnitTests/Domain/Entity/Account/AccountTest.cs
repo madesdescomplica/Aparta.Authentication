@@ -79,4 +79,35 @@ public class AccountTest
         account.DocumentNumber.Should().Be(validAccount.DocumentNumber);
         account.DocumentNumber.Should().HaveLength(14);
     }
+
+    [Theory(DisplayName = nameof(Should_Throw_If_Receive_Incorrect_CPF_Number))]
+    [Trait("Domain", "Account - Aggregates")]
+    [MemberData(
+        nameof(AccountTestDataGenerator.GetInvalidsCPFsNumbers),
+        parameters: 10,
+        MemberType = typeof(AccountTestDataGenerator)
+    )]
+    public void Should_Throw_If_Receive_Incorrect_CPF_Number(string documentNumber)
+    {
+        var clientType = ClientType.PF;
+        var validAccount = _fixture.GetValidAccount(clientType);
+
+        Action action = ()
+            => new DomainEntity.Account(
+            clientType,
+            documentNumber,
+            validAccount.Name,
+            validAccount.Address,
+            validAccount.Phone,
+            validAccount.BankName,
+            validAccount.AgencyNumber,
+            validAccount.AccountNumber,
+            validAccount.TaxType,
+            validAccount.TaxRate
+        );
+
+        action.Should()
+            .Throw<EntityValidationException>()
+            .WithMessage("Invalid CPF number");
+    }
 }

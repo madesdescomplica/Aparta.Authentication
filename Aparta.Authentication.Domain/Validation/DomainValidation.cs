@@ -19,7 +19,7 @@ public class DomainValidation
         }
         else
         {
-            throw new EntityValidationException("Invalid client type");
+            throw new EntityValidationException("Invalid ClientType");
         }
     }
 }

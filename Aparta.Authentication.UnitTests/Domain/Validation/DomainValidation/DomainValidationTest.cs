@@ -77,4 +77,21 @@ public class DomainValidationTest
             .Throw<EntityValidationException>()
             .WithMessage("Invalid CNPJ number");
     }
+
+    [Fact(DisplayName = nameof(Should_Throw_If_Receive_Incorrect_ContentType))]
+    [Trait("Domain", "DomainValidation - Validation")]
+    public void Should_Throw_If_Receive_Incorrect_ContentType()
+    {
+        var clientType = 3;
+        string documentNumber = Faker.Company.Cnpj();
+        Action action = ()
+            => Validations.DomainValidation.ValidateCPFAndCNPJ(
+                (ClientType)clientType,
+                documentNumber
+            );
+
+        action.Should()
+            .Throw<EntityValidationException>()
+            .WithMessage("Invalid ClientType");
+    }
 }

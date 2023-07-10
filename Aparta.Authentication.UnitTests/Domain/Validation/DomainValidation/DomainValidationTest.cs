@@ -144,4 +144,24 @@ public class DomainValidationTest
 
         action.Should().NotThrow();
     }
+
+    [Theory(DisplayName = nameof(Should_Throw_If_Receive_Null_Or_Empty))]
+    [Trait("Domain", "DomainValidation - Validation")]
+    [InlineData("")]
+    [InlineData(" ")]
+    [InlineData(null)]
+    public void Should_Throw_If_Receive_Null_Or_Empty(string? target)
+    {
+        string fieldName = Faker.Lorem.Word();
+
+        Action action = ()
+            => Validations.DomainValidation.NotNullOrEmpty(
+                target, 
+                fieldName
+            );
+
+        action.Should()
+            .Throw<EntityValidationException>()
+            .WithMessage($"{fieldName} should not be empty or null");
+    }
 }

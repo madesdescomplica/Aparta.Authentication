@@ -254,4 +254,30 @@ public class AccountTest
             .Throw<EntityValidationException>()
             .WithMessage("Name should have less or equal 255 characters");
     }
+
+    [Fact(DisplayName = nameof(Should_Throw_An_Error_When_Address_Is_Null))]
+    [Trait("Domain", "Account - Aggregates")]
+    public void Should_Throw_An_Error_When_Address_Is_Null()
+    {
+        var clientType = _fixture.GetRandomClientType();
+        var validAccount = _fixture.GetValidAccount(clientType);
+
+        Action action = ()
+            => new DomainEntity.Account(
+            clientType,
+            validAccount.DocumentNumber,
+            validAccount.Name,
+            null!,
+            validAccount.Phone,
+            validAccount.BankName,
+            validAccount.AgencyNumber,
+            validAccount.AccountNumber,
+            validAccount.TaxType,
+            validAccount.TaxRate
+        );
+
+        action.Should()
+            .Throw<EntityValidationException>()
+            .WithMessage("Address should not be empty or null");
+    }
 }

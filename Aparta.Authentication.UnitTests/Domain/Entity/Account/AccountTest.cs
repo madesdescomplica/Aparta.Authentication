@@ -167,4 +167,33 @@ public class AccountTest
             .Throw<EntityValidationException>()
             .WithMessage("Invalid CNPJ number");
     }
+
+    [Theory(DisplayName = nameof(Should_Throw_An_Error_When_Name_Is_Empty))]
+    [Trait("Domain", "Account - Aggregates")]
+    [InlineData("")]
+    [InlineData(null)]
+    [InlineData(" ")]
+    public void Should_Throw_An_Error_When_Name_Is_Empty(string? name)
+    {
+        var clientType = _fixture.GetRandomClientType();
+        var validAccount = _fixture.GetValidAccount(clientType);
+
+        Action action = ()
+            => new DomainEntity.Account(
+            clientType,
+            validAccount.DocumentNumber,
+            name!,
+            validAccount.Address,
+            validAccount.Phone,
+            validAccount.BankName,
+            validAccount.AgencyNumber,
+            validAccount.AccountNumber,
+            validAccount.TaxType,
+            validAccount.TaxRate
+        );
+
+        action.Should()
+            .Throw<EntityValidationException>()
+            .WithMessage("Name should not be empty or null");
+    }
 }

@@ -49,5 +49,7 @@ public class Account : AggregateRoot
     private void Validate()
     {
         DomainValidation.ValidateCPFAndCNPJ(ClientType, DocumentNumber);
+
+        DomainValidation.NotNullOrEmpty(Name, nameof(Name));
     }
 }

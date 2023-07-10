@@ -210,4 +210,25 @@ public class DomainValidationTest
                 $"{fieldName} should have at least {minLength} characters"
             );
     }
+
+    [Theory(DisplayName = nameof(Should_Not_Throw_If_Not_Receive_MaxLength))]
+    [Trait("Domain", "DomainValidation - Validation")]
+    [MemberData(
+        nameof(DomainValidationTestDataGenerator.GetValuesLessThanTheMax),
+        parameters: 10,
+        MemberType = typeof(DomainValidationTestDataGenerator)
+    )]
+    public void Should_Not_Throw_If_Not_Receive_MaxLength(string target, int maxLength)
+    {
+        string fieldName = Faker.Lorem.Word();
+
+        Action action = ()
+            => Validations.DomainValidation.MaxLength(
+                target, 
+                maxLength, 
+                fieldName
+            );
+
+        action.Should().NotThrow();
+    }
 }

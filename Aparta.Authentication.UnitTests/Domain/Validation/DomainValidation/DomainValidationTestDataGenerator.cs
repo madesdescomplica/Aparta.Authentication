@@ -29,4 +29,30 @@ public class DomainValidationTestDataGenerator
             yield return new object[] { example, minLength };
         }
     }
+
+    public static IEnumerable<object[]> GetValuesLessThanTheMax(int numberOfTests = 5)
+    {
+        yield return new object[] { "123456", 6 };
+        var faker = new Faker();
+        for (int i = 0; i < (numberOfTests - 1); i++)
+        {
+            var example = faker.Lorem.Word();
+            var maxLength = example.Length + (new Random()).Next(0, 5);
+
+            yield return new object[] { example, maxLength };
+        }
+    }
+
+    public static IEnumerable<object[]> GetValuesGreaterThanTheMax(int numberOfTests = 5)
+    {
+        yield return new object[] { "123456", 5 };
+        var faker = new Faker();
+        for (int i = 0; i < (numberOfTests - 1); i++)
+        {
+            var example = faker.Lorem.Word();
+            var maxLength = example.Length - (new Random()).Next(1, 5);
+
+            yield return new object[] { example, maxLength };
+        }
+    }
 }

@@ -52,4 +52,13 @@ public class DomainValidation
             );
         }
     }
+    public static void MaxLength(string target, int maxLength, string fieldname)
+    {
+        if (target.Length > maxLength)
+        {
+            throw new EntityValidationException(
+                $"{fieldname} should have less or equal {maxLength} characters"
+            );
+        }
+    }
 }

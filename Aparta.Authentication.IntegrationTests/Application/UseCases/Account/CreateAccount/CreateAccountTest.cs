@@ -1,10 +1,13 @@
-﻿
+﻿using Aparta.Authentication.Domain.Exceptions;
+
 using ApplicationUseCases = Aparta.Authentication.Application.UseCases.Account.CreateAccount;
+using Aparta.Authentication.Application.UseCases.Account.CreateAccount;
 
 using Aparta.Authentication.Infra.Data.EF.Repositories;
 using Aparta.Authentication.Infra.Data.EF;
 
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace Aparta.Authentication.IntegrationTests.Application.UseCases.Account.CreateAccount;
@@ -64,6 +67,38 @@ public class CreateAccountTest
         output.TaxRate.Should().Be(input.TaxRate);
         output.Id.Should().NotBeEmpty();
         output.CreatedAt.Should().NotBe(default);
+    }
+
+    [Theory(DisplayName = nameof(Should_Throw_When_Cant_Instantiate_Account))]
+    [Trait("Integration/Application", "CreateAccount - UseCases")]
+    [MemberData(
+        nameof(CreateAccountTestDataGenerator.GetInvalidInputs),
+        parameters: 16,
+        MemberType = typeof(CreateAccountTestDataGenerator)
+    )]
+    public async void Should_Throw_When_Cant_Instantiate_Account(
+        CreateAccountInput input,
+        string expectedExceptionMessage
+    )
+    {
+        var dbContext = _fixture.CreateDbContext();
+        var repository = new AccountRepository(dbContext);
+        var unitOfWork = new UnitOfWork(dbContext);
+        var useCase = new ApplicationUseCases.CreateAccount(
+            repository, 
+            unitOfWork
+        );
+
+        var task = async ()
+            => await useCase.Handle(input, CancellationToken.None);
+
+        await task.Should().ThrowAsync<EntityValidationException>()
+            .WithMessage(expectedExceptionMessage);
+        var dbCategoriesList = _fixture.CreateDbContext(true)
+            .Accounts
+            .AsNoTracking()
+            .ToList();
+        dbCategoriesList.Should().HaveCount(0);
     }
 }
 

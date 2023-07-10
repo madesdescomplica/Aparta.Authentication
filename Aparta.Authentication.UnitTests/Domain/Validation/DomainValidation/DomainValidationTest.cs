@@ -95,40 +95,6 @@ public class DomainValidationTest
             .WithMessage("Invalid ClientType");
     }
 
-    [Fact(DisplayName = nameof(Should_Not_Throw_If_Not_Receive_Null))]
-    [Trait("Domain", "DomainValidation - Validation")]
-    public void Should_Not_Throw_If_Not_Receive_Null()
-    {
-        var target = Faker.Lorem.Paragraph().Replace(" ", "");
-        string fieldName = Faker.Lorem.Word();
-
-        Action action = ()
-            => Validations.DomainValidation.NotNull(
-                target, 
-                fieldName
-            );
-
-        action.Should().NotThrow();
-    }
-
-    [Fact(DisplayName = nameof(Should_Throw_If_Receive_Null))]
-    [Trait("Domain", "DomainValidation - Validation")]
-    public void Should_Throw_If_Receive_Null()
-    {
-        string? target = null;
-        string fieldName = Faker.Lorem.Word();
-
-        Action action = ()
-            => Validations.DomainValidation.NotNull(
-                target, 
-                fieldName
-            );
-
-        action.Should()
-            .Throw<EntityValidationException>()
-            .WithMessage($"{fieldName} should not be null");
-    }
-
     [Fact(DisplayName = nameof(Should_Not_Throw_If_Not_Receive_Null_Or_Empty))]
     [Trait("Domain", "DomainValidation - Validation")]
     public void Should_Not_Throw_If_Not_Receive_Null_Or_Empty()

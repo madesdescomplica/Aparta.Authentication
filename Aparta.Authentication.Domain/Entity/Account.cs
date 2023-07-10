@@ -55,10 +55,12 @@ public class Account : AggregateRoot
         DomainValidation.MaxLength(Name, 255, nameof(Name));
 
         DomainValidation.NotNullOrEmpty(Address, nameof(Address));
+        DomainValidation.MaxLength(Address, 10000, nameof(Address));
 
         DomainValidation.NotNullOrEmpty(Phone, nameof(Phone));
 
         DomainValidation.NotNullOrEmpty(BankName, nameof(BankName));
+        DomainValidation.MaxLength(BankName, 255, nameof(BankName));
         DomainValidation.NotNullOrEmpty(AgencyNumber, nameof(AgencyNumber));
         DomainValidation.NotNullOrEmpty(AccountNumber, nameof(AccountNumber));
     }

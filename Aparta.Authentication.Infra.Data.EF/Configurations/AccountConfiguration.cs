@@ -13,5 +13,9 @@ public class AccountConfiguration
         builder.HasKey(account => account.Id);
         builder.Property(account => account.Name)
             .HasMaxLength(255);
+        builder.Property(account => account.Address)
+            .HasMaxLength(10_000);
+        builder.Property(account => account.BankName)
+            .HasMaxLength(255);
     }
 }

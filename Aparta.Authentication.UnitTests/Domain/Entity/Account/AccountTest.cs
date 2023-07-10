@@ -281,6 +281,33 @@ public class AccountTest
             .WithMessage("Address should not be empty or null");
     }
 
+    [Fact(DisplayName = nameof(Should_Throw_An_Error_When_Address_Is_Greater_Than_10000_Characters))]
+    [Trait("Domain", "Account - Aggregates")]
+    public void Should_Throw_An_Error_When_Address_Is_Greater_Than_10000_Characters()
+    {
+        var invalidAddress = new string('a', 10001);
+        var clientType = _fixture.GetRandomClientType();
+        var validAccount = _fixture.GetValidAccount(clientType);
+
+        Action action = ()
+            => new DomainEntity.Account(
+            clientType,
+            validAccount.DocumentNumber,
+            validAccount.Name,
+            invalidAddress,
+            validAccount.Phone,
+            validAccount.BankName,
+            validAccount.AgencyNumber,
+            validAccount.AccountNumber,
+            validAccount.TaxType,
+            validAccount.TaxRate
+        );
+
+        action.Should()
+            .Throw<EntityValidationException>()
+            .WithMessage("Address should have less or equal 10000 characters");
+    }
+
     [Fact(DisplayName = nameof(Should_Throw_An_Error_When_Phone_Is_Null))]
     [Trait("Domain", "Account - Aggregates")]
     public void Should_Throw_An_Error_When_Phone_Is_Null()
@@ -331,6 +358,33 @@ public class AccountTest
         action.Should()
             .Throw<EntityValidationException>()
             .WithMessage("BankName should not be empty or null");
+    }
+
+    [Fact(DisplayName = nameof(Should_Throw_An_Error_When_BankName_Is_Greater_Than_255_Characters))]
+    [Trait("Domain", "Account - Aggregates")]
+    public void Should_Throw_An_Error_When_BankName_Is_Greater_Than_255_Characters()
+    {
+        var invalidBankName = new string('a', 256);
+        var clientType = _fixture.GetRandomClientType();
+        var validAccount = _fixture.GetValidAccount(clientType);
+
+        Action action = ()
+            => new DomainEntity.Account(
+            clientType,
+            validAccount.DocumentNumber,
+            validAccount.Name,
+            validAccount.Address,
+            validAccount.Phone,
+            invalidBankName,
+            validAccount.AgencyNumber,
+            validAccount.AccountNumber,
+            validAccount.TaxType,
+            validAccount.TaxRate
+        );
+
+        action.Should()
+            .Throw<EntityValidationException>()
+            .WithMessage("BankName should have less or equal 255 characters");
     }
 
     [Fact(DisplayName = nameof(Should_Throw_An_Error_When_AgencyNumber_Is_Null))]

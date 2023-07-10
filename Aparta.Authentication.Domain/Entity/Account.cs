@@ -55,5 +55,7 @@ public class Account : AggregateRoot
         DomainValidation.MaxLength(Name, 255, nameof(Name));
 
         DomainValidation.NotNullOrEmpty(Address, nameof(Address));
+
+        DomainValidation.NotNullOrEmpty(Phone, nameof(Phone));
     }
 }

@@ -42,4 +42,14 @@ public class DomainValidation
             );
         }
     }
+
+    public static void MinLength(string target, int minLength, string fieldname)
+    {
+        if (target.Length < minLength)
+        {
+            throw new EntityValidationException(
+                $"{fieldname} should have at least {minLength} characters"
+            );
+        }
+    }
 }

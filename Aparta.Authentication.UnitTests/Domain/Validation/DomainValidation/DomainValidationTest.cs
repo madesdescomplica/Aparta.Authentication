@@ -164,4 +164,50 @@ public class DomainValidationTest
             .Throw<EntityValidationException>()
             .WithMessage($"{fieldName} should not be empty or null");
     }
+
+    [Theory(DisplayName = nameof(Should_Not_Throw_If_Not_Receive_MinLength))]
+    [Trait("Domain", "DomainValidation - Validation")]
+    [MemberData(
+        nameof(DomainValidationTestDataGenerator.GetValuesGreaterThanTheMin),
+        parameters: 10,
+        MemberType = typeof(DomainValidationTestDataGenerator)
+    )]
+    public void Should_Not_Throw_If_Not_Receive_MinLength(string target, int minLength)
+    {
+        string fieldName = Faker.Commerce.ProductName().Replace(" ", "");
+
+        Action action = ()
+            => Validations.DomainValidation.MinLength(
+                target, 
+                minLength,
+                fieldName
+            );
+
+        action.Should().NotThrow();
+    }
+
+    [Theory(DisplayName = nameof(Should_Throw_If_Receive_MinLength))]
+    [Trait("Domain", "DomainValidation - Validation")]
+    [MemberData(
+        nameof(DomainValidationTestDataGenerator.GetValuesSmallerThanTheMin),
+        parameters: 10,
+        MemberType = typeof(DomainValidationTestDataGenerator)
+    )]
+    public void Should_Throw_If_Receive_MinLength(string target, int minLength)
+    {
+        string fieldName = Faker.Lorem.Word();
+
+        Action action = ()
+            => Validations.DomainValidation.MinLength(
+                target, 
+                minLength, 
+                fieldName
+            );
+
+        action.Should()
+            .Throw<EntityValidationException>()
+            .WithMessage(
+                $"{fieldName} should have at least {minLength} characters"
+            );
+    }
 }

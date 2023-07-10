@@ -60,5 +60,6 @@ public class Account : AggregateRoot
 
         DomainValidation.NotNullOrEmpty(BankName, nameof(BankName));
         DomainValidation.NotNullOrEmpty(AgencyNumber, nameof(AgencyNumber));
+        DomainValidation.NotNullOrEmpty(AccountNumber, nameof(AccountNumber));
     }
 }

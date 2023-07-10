@@ -231,4 +231,29 @@ public class DomainValidationTest
 
         action.Should().NotThrow();
     }
+
+    [Theory(DisplayName = nameof(Should_Throw_If_Receive_MaxLength))]
+    [Trait("Domain", "DomainValidation - Validation")]
+    [MemberData(
+        nameof(DomainValidationTestDataGenerator.GetValuesGreaterThanTheMax),
+        parameters: 10,
+        MemberType = typeof(DomainValidationTestDataGenerator)
+    )]
+    public void Should_Throw_If_Receive_MaxLength(string target, int maxLength)
+    {
+        string fieldName = Faker.Lorem.Word();
+
+        Action action = ()
+            => Validations.DomainValidation.MaxLength(
+                target, 
+                maxLength, 
+                fieldName
+            );
+
+        action.Should()
+            .Throw<EntityValidationException>()
+            .WithMessage(
+                $"{fieldName} should have less or equal {maxLength} characters"
+            );
+    }
 }

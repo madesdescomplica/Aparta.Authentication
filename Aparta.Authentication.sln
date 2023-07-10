@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.33808.371
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{41B13A6C-73A6-46A6-99F8-BA352F3BEFD7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{01FF6C61-B411-4704-8749-E9BCD8BAF934}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aparta.Authentication.UnitTests", "Aparta.Authentication.UnitTests\Aparta.Authentication.UnitTests.csproj", "{EB2AEF42-8743-43E3-9A99-AA64B8221E21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aparta.Authentication.Domain", "Aparta.Authentication.Domain\Aparta.Authentication.Domain.csproj", "{44D2F3C6-0ABB-4CE3-8B46-2648AD5DF39A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB2AEF42-8743-43E3-9A99-AA64B8221E21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB2AEF42-8743-43E3-9A99-AA64B8221E21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB2AEF42-8743-43E3-9A99-AA64B8221E21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB2AEF42-8743-43E3-9A99-AA64B8221E21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44D2F3C6-0ABB-4CE3-8B46-2648AD5DF39A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44D2F3C6-0ABB-4CE3-8B46-2648AD5DF39A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44D2F3C6-0ABB-4CE3-8B46-2648AD5DF39A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44D2F3C6-0ABB-4CE3-8B46-2648AD5DF39A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EB2AEF42-8743-43E3-9A99-AA64B8221E21} = {01FF6C61-B411-4704-8749-E9BCD8BAF934}
+		{44D2F3C6-0ABB-4CE3-8B46-2648AD5DF39A} = {41B13A6C-73A6-46A6-99F8-BA352F3BEFD7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BD912CDB-F454-4B88-AD44-E9A0DF467A3E}
+	EndGlobalSection
+EndGlobal

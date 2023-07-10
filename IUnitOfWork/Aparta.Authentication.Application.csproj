@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Aparta.Authentication.Domain\Aparta.Authentication.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

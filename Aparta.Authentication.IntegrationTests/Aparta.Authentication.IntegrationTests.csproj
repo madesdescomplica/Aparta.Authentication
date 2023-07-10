@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Aparta.Authentication.Application\Aparta.Authentication.Application.csproj" />
     <ProjectReference Include="..\Aparta.Authentication.Domain\Aparta.Authentication.Domain.csproj" />
     <ProjectReference Include="..\Aparta.Authentication.Infra.Data.EF\Aparta.Authentication.Infra.Data.EF.csproj" />
   </ItemGroup>

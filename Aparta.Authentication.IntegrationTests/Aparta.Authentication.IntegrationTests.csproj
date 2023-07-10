@@ -30,4 +30,10 @@
     <ProjectReference Include="..\Aparta.Authentication.Infra.Data.EF\Aparta.Authentication.Infra.Data.EF.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="xunit.runner.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

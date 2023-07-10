@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Aparta.Authentication.Domain\Aparta.Authentication.Domain.csproj" />
+    <ProjectReference Include="..\IUnitOfWork\Aparta.Authentication.Application.csproj" />
   </ItemGroup>
 
 </Project>

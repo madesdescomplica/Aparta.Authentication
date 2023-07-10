@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aparta.Authentication.Infra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aparta.Authentication.IntegrationTests", "Aparta.Authentication.IntegrationTests\Aparta.Authentication.IntegrationTests.csproj", "{FFC1854A-2E1F-4F65-955D-6DBFF00708DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aparta.Authentication.Application", "IUnitOfWork\Aparta.Authentication.Application.csproj", "{03E89EF0-B6E9-4BEC-A4D5-2BF9C61E776D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{FFC1854A-2E1F-4F65-955D-6DBFF00708DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFC1854A-2E1F-4F65-955D-6DBFF00708DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFC1854A-2E1F-4F65-955D-6DBFF00708DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03E89EF0-B6E9-4BEC-A4D5-2BF9C61E776D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03E89EF0-B6E9-4BEC-A4D5-2BF9C61E776D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03E89EF0-B6E9-4BEC-A4D5-2BF9C61E776D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03E89EF0-B6E9-4BEC-A4D5-2BF9C61E776D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +52,7 @@ Global
 		{44D2F3C6-0ABB-4CE3-8B46-2648AD5DF39A} = {41B13A6C-73A6-46A6-99F8-BA352F3BEFD7}
 		{C987161E-CA80-40EE-A167-012E2CD2A672} = {41B13A6C-73A6-46A6-99F8-BA352F3BEFD7}
 		{FFC1854A-2E1F-4F65-955D-6DBFF00708DD} = {01FF6C61-B411-4704-8749-E9BCD8BAF934}
+		{03E89EF0-B6E9-4BEC-A4D5-2BF9C61E776D} = {41B13A6C-73A6-46A6-99F8-BA352F3BEFD7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BD912CDB-F454-4B88-AD44-E9A0DF467A3E}

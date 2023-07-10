@@ -110,4 +110,30 @@ public class AccountTest
             .Throw<EntityValidationException>()
             .WithMessage("Invalid CPF number");
     }
+
+    [Theory(DisplayName = nameof(Should_Receive_Correct_CNPJ_Number))]
+    [Trait("Domain", "Account - Aggregates")]
+    [InlineData(ClientType.PJ)]
+    public void Should_Receive_Correct_CNPJ_Number(ClientType clientType)
+    {
+        var validAccount = _fixture.GetValidAccount(clientType);
+
+        var account = new DomainEntity.Account(
+            clientType,
+            validAccount.DocumentNumber,
+            validAccount.Name,
+            validAccount.Address,
+            validAccount.Phone,
+            validAccount.BankName,
+            validAccount.AgencyNumber,
+            validAccount.AccountNumber,
+            validAccount.TaxType,
+            validAccount.TaxRate
+        );
+
+        account.Should().NotBeNull();
+        account.ClientType.Should().Be(clientType);
+        account.DocumentNumber.Should().Be(validAccount.DocumentNumber);
+        account.DocumentNumber.Should().HaveLength(18);
+    }
 }

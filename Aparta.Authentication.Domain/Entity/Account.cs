@@ -51,5 +51,6 @@ public class Account : AggregateRoot
         DomainValidation.ValidateCPFAndCNPJ(ClientType, DocumentNumber);
 
         DomainValidation.NotNullOrEmpty(Name, nameof(Name));
+        DomainValidation.MinLength(Name, 3, nameof(Name));
     }
 }

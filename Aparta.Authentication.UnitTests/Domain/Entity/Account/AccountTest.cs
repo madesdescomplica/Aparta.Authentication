@@ -196,4 +196,35 @@ public class AccountTest
             .Throw<EntityValidationException>()
             .WithMessage("Name should not be empty or null");
     }
+
+    [Theory(DisplayName = nameof(Should_Throw_An_Error_When_Name_Is_Less_Than_3_Characters))]
+    [Trait("Domain", "Account - Aggregates")]
+    [MemberData(
+        nameof(AccountTestDataGenerator.GetNamesWithLessThan3Characters),
+        parameters: 10,
+        MemberType = typeof(AccountTestDataGenerator)
+    )]
+    public void Should_Throw_An_Error_When_Name_Is_Less_Than_3_Characters(string invalidName)
+    {
+        var clientType = _fixture.GetRandomClientType();
+        var validAccount = _fixture.GetValidAccount(clientType);
+
+        Action action = ()
+            => new DomainEntity.Account(
+            clientType,
+            validAccount.DocumentNumber,
+            invalidName,
+            validAccount.Address,
+            validAccount.Phone,
+            validAccount.BankName,
+            validAccount.AgencyNumber,
+            validAccount.AccountNumber,
+            validAccount.TaxType,
+            validAccount.TaxRate
+        );
+
+        action.Should()
+            .Throw<EntityValidationException>()
+            .WithMessage("Name should have at least 3 characters");
+    }
 }

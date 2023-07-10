@@ -22,4 +22,15 @@ public class DomainValidation
             throw new EntityValidationException("Invalid ClientType");
         }
     }
+
+    public static void NotNull(object? target, string fieldName)
+    {
+        if (target == null)
+        {
+            throw new EntityValidationException(
+                $"{fieldName} should not be null"
+            );
+        }
+    }
+
 }

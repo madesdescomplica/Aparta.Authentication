@@ -94,4 +94,17 @@ public class DomainValidationTest
             .Throw<EntityValidationException>()
             .WithMessage("Invalid ClientType");
     }
+
+    [Fact(DisplayName = nameof(Should_Not_Throw_If_Not_Receive_Null))]
+    [Trait("Domain", "Helpers - Validation")]
+    public void Should_Not_Throw_If_Not_Receive_Null()
+    {
+        var target = Faker.Lorem.Paragraph().Replace(" ", "");
+        string fieldName = Faker.Lorem.Word();
+
+        Action action = ()
+            => Validations.DomainValidation.NotNull(target, fieldName);
+
+        action.Should().NotThrow();
+    }
 }

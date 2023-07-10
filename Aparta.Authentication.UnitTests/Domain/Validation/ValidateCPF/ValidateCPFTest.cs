@@ -1,4 +1,4 @@
-﻿using DomainValidation = Aparta.Authentication.Domain.Validation;
+﻿using Validations = Aparta.Authentication.Domain.Validation;
 
 using FluentAssertions;
 using Xunit;
@@ -15,7 +15,7 @@ public class ValidateCPFTest
     )]
     public void Should_Return_True_If_Receive_Correct_CPF_Number(string cpf)
     {
-        var isValid = DomainValidation.ValidateCPF.IsValid(cpf);
+        var isValid = Validations.ValidateCPF.IsValid(cpf);
 
         isValid.Should().BeTrue();
     }
@@ -29,7 +29,7 @@ public class ValidateCPFTest
     )]
     public void Should_Return_False_If_Receive_Incorrect_CPF_Number(string cpf)
     {
-        var isValid = DomainValidation.ValidateCPF.IsValid(cpf);
+        var isValid = Validations.ValidateCPF.IsValid(cpf);
 
         isValid.Should().BeFalse();
     }
@@ -41,7 +41,7 @@ public class ValidateCPFTest
     [InlineData("22222222222")]
     public void Should_Return_False_If_Receive_Incorrect_CPF_Number_With_Repeat_Numbers(string cpf)
     {
-        var isValid = DomainValidation.ValidateCPF.IsValid(cpf);
+        var isValid = Validations.ValidateCPF.IsValid(cpf);
 
         isValid.Should().BeFalse();
     }

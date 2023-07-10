@@ -1,4 +1,4 @@
-﻿using DomainValidation = Aparta.Authentication.Domain.Validation;
+﻿using Validations = Aparta.Authentication.Domain.Validation;
 
 using FluentAssertions;
 using Xunit;
@@ -16,7 +16,7 @@ public class ValidateCNPJTest
     )]
     public void Should_Return_True_If_Receive_Correct_CNPJ_Number(string cnpj)
     {
-        var isValid = DomainValidation.ValidateCNPJ.IsValid(cnpj);
+        var isValid = Validations.ValidateCNPJ.IsValid(cnpj);
 
         isValid.Should().BeTrue();
     }
@@ -30,7 +30,7 @@ public class ValidateCNPJTest
     )]
     public void Should_Return_False_If_Receive_Incorrect_CNPJ_Number(string cnpj)
     {
-        var isValid = DomainValidation.ValidateCPF.IsValid(cnpj);
+        var isValid = Validations.ValidateCPF.IsValid(cnpj);
 
         isValid.Should().BeFalse();
     }

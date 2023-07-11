@@ -107,4 +107,10 @@ public class AccountRepositoryTestFixture
             GetRandomTaxType(),
             GetValidTaxRate()
         );
+
+    public List<Account> GetExampleAccountsList(int length = 10)
+        => Enumerable
+            .Range(1, length)
+            .Select(_ => GetValidAccount(GetRandomClientType()))
+            .ToList();
 }

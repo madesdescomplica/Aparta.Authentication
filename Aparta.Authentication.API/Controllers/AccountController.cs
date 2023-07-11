@@ -8,6 +8,7 @@ using Aparta.Authentication.API.ApiModels.Response;
 
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Aparta.Authentication.Application.UseCases.Account.DeleteAccount;
 
 namespace Aparta.Authentication.API.Controllers;
 
@@ -78,5 +79,20 @@ public class AccountController : ControllerBase
             cancellationToken
         );
         return Ok(new ApiResponse<AccountModelOutput>(output));
+    }
+
+    [HttpDelete("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Delete(
+        [FromRoute] Guid id,
+        CancellationToken cancellationToken
+    )
+    {
+        await _mediator.Send(
+            new DeleteAccountInput(id), 
+            cancellationToken
+        );
+        return NoContent();
     }
 }

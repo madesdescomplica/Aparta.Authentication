@@ -4,6 +4,7 @@ using Repository = Aparta.Authentication.Infra.Data.EF.Repositories;
 using FluentAssertions;
 using Xunit;
 using Aparta.Authentication.Application.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace Aparta.Authentication.IntegrationTests.Infra.Data.EF.Repositories.AccountRepository;
 
@@ -100,42 +101,47 @@ public class AccountRepositoryTest
             .WithMessage($"Account '{exampleId}' not found.");
     }
 
-    /*[Fact(DisplayName = nameof(Should_Call_Update_With_Correct_Values))]
+    [Fact(DisplayName = nameof(Should_Call_Update_With_Correct_Values))]
     [Trait("Integration/Infra.Data", "AccountRepository - Repositories")]
     public async Task Should_Call_Update_With_Correct_Values()
     {
+        var exampleAccountList = _fixture.GetExampleAccountsList(5);
+        var accountExample = exampleAccountList[3];
         var clientType = _fixture.GetRandomClientType();
         var validAccount = _fixture.GetValidAccount(clientType);
-        var newValidAccount = _fixture.GetValidAccount(clientType);
-        var exampleAccountList = _fixture.GetExampleAccountsList(15);
-        ApartaAuthenticationDbContext dbContext = _fixture.CreateDbContext();
-        var accountRepository = new Repository.AccountRepository(dbContext);
-        
-        await dbContext.AddRangeAsync(exampleAccountList);
-        await dbContext.SaveChangesAsync(CancellationToken.None);
-        validAccount.Update(
-            newValidAccount.ClientType,
-            newValidAccount.DocumentNumber,
-            newValidAccount.Name,
-            newValidAccount.Address,
-            newValidAccount.Phone,
-            newValidAccount.BankName,
-            newValidAccount.AgencyNumber,
-            newValidAccount.AccountNumber,
-            newValidAccount.TaxType,
-            newValidAccount.TaxRate
+        var arrangeContext = _fixture.CreateDbContext();
+        await arrangeContext.AddRangeAsync(exampleAccountList);
+        await arrangeContext.SaveChangesAsync();
+        var dbContext = _fixture.CreateDbContext(true);
+        var repository = new Repository.AccountRepository(dbContext);
+
+        accountExample.Update(
+            validAccount.ClientType,
+            validAccount.DocumentNumber,
+            validAccount.Name,
+            validAccount.Address,
+            validAccount.Phone,
+            validAccount.BankName,
+            validAccount.AgencyNumber,
+            validAccount.AccountNumber,
+            validAccount.TaxType,
+            validAccount.TaxRate
         );
-        await accountRepository.Update(validAccount, CancellationToken.None);
+        await repository.Update(
+            accountExample, 
+            CancellationToken.None
+        );
         await dbContext.SaveChangesAsync();
 
-        var dbAccount = await (_fixture
-            .CreateDbContext(true))
+        var assertionContext = _fixture.CreateDbContext(true);
+        var dbAccount = await assertionContext
             .Accounts
-            .FindAsync(validAccount.Id
-        );
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Id == accountExample.Id);
 
         dbAccount.Should().NotBeNull();
-        dbAccount!.ClientType.Should().Be(validAccount.ClientType);
+        dbAccount!.Id.Should().NotBeEmpty();
+        dbAccount.ClientType.Should().Be(validAccount.ClientType);
         dbAccount.DocumentNumber.Should().Be(validAccount.DocumentNumber);
         dbAccount.Name.Should().Be(validAccount.Name);
         dbAccount.Address.Should().Be(validAccount.Address);
@@ -145,7 +151,5 @@ public class AccountRepositoryTest
         dbAccount.AccountNumber.Should().Be(validAccount.AccountNumber);
         dbAccount.TaxType.Should().Be(validAccount.TaxType);
         dbAccount.TaxRate.Should().Be(validAccount.TaxRate);
-        dbAccount.Id.Should().NotBeEmpty();
-        dbAccount.CreatedAt.Should().Be(validAccount.CreatedAt);
-    }*/
+    }
 }

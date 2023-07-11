@@ -7,6 +7,9 @@ using Aparta.Authentication.Infra.Data.EF.Repositories;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
+using Aparta.Authentication.Application.Exceptions;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Aparta.Authentication.IntegrationTests.Application.UseCases.Account.DeleteAccount;
 
@@ -50,5 +53,30 @@ public class DeleteAccountTest
 
         dbAccountDeleted.Should().BeNull();
         dbAccounts.Should().HaveCount(exampleList.Count);
+    }
+
+    [Fact(DisplayName = nameof(Should_Throw_DeleteAccount_When_NotFound))]
+    [Trait("Integration/Application", "DeleteAccount - UseCases")]
+    public async Task Should_Throw_DeleteAccount_When_NotFound()
+    {
+        var dbContext = _fixture.CreateDbContext();
+        var exampleList = _fixture.GetExampleAccountsList(10);
+        await dbContext.AddRangeAsync(exampleList);
+        await dbContext.SaveChangesAsync();
+        var repository = new AccountRepository(dbContext);
+        var unitOfWork = new UnitOfWork(dbContext);
+        var useCase = new ApplicationUseCase.DeleteAccount(
+            repository, 
+            unitOfWork
+        );
+        var input = new DeleteAccountInput(Guid.NewGuid());
+
+        var task = async ()
+            => await useCase.Handle(input, CancellationToken.None);
+
+        await task.Should()
+            .ThrowAsync<NotFoundException>()
+            .WithMessage($"Account '{input.Id}' not found.");
+
     }
 }

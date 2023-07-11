@@ -45,9 +45,9 @@ public class GetAccountTest
         output.CreatedAt.Should().NotBe(default);
     }
 
-    [Fact(DisplayName = nameof(Should_Throws_NotFoundException_When_Account_Doesnt_Exist))]
+    [Fact(DisplayName = nameof(Should_Throw_NotFoundException_When_Account_Doesnt_Exist))]
     [Trait("Integration/Application", "GetAccount - UseCases")]
-    public async Task Should_Throws_NotFoundException_When_Account_Doesnt_Exist()
+    public async Task Should_Throw_NotFoundException_When_Account_Doesnt_Exist()
     {
         var clientType = _fixture.GetRandomClientType();
         var account = _fixture.GetValidAccount(clientType);

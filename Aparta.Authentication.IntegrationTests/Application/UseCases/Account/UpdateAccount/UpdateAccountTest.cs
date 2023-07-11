@@ -9,6 +9,9 @@ using Aparta.Authentication.Infra.Data.EF.Repositories;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
+using Aparta.Authentication.Application.Exceptions;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Aparta.Authentication.IntegrationTests.Application.UseCases.Account.UpdateAccount;
 
@@ -39,7 +42,10 @@ public class UpdateAccountTest
         trackingInfo.State = EntityState.Detached;
         var repository = new AccountRepository(dbContext);
         var unitOfWork = new UnitOfWork(dbContext);
-        var useCase = new ApplicationUseCase.UpdateAccount(repository, unitOfWork);
+        var useCase = new ApplicationUseCase.UpdateAccount(
+            repository, 
+            unitOfWork
+        );
 
         var output = await useCase.Handle(input, CancellationToken.None);
         var dbAccount = await (_fixture.CreateDbContext(true))
@@ -73,6 +79,43 @@ public class UpdateAccountTest
         output.TaxRate.Should().Be(input.TaxRate);
         output.Id.Should().NotBeEmpty();
         output.CreatedAt.Should().NotBe(default);
+    }
+
+    [Fact(DisplayName = nameof(Should_Throw_NotFoundException_When_Account_Doesnt_Exist))]
+    [Trait("Integration/Application", "UpdateAccount - UseCases")]
+    public async Task Should_Throw_NotFoundException_When_Account_Doesnt_Exist()
+    {
+        var randomGuid = Guid.NewGuid();
+        var validInput = _fixture.GetValidInput(randomGuid);
+        var dbContext = _fixture.CreateDbContext(true);
+        var repository = new AccountRepository(dbContext);
+        var unitOfWork = new UnitOfWork(dbContext);
+        var useCase = new ApplicationUseCase.UpdateAccount(
+            repository, 
+            unitOfWork
+        );
+        var input = new UpdateAccountInput(
+            validInput.Id,
+            validInput.ClientType,
+            validInput.DocumentNumber,
+            validInput.Name,
+            validInput.Address,
+            validInput.Phone,
+            validInput.BankName,
+            validInput.AgencyNumber,
+            validInput.AccountNumber,
+            validInput.TaxType,
+            validInput.TaxRate
+        );
+
+        var action = async () => await useCase.Handle(
+            input, 
+            CancellationToken.None
+        );
+
+        await action.Should()
+            .ThrowAsync<NotFoundException>()
+            .WithMessage($"Account '{randomGuid}' not found.");
     }
 }
 

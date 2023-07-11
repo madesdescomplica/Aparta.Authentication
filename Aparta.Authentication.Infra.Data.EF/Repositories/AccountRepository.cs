@@ -35,4 +35,7 @@ public class AccountRepository : IAccountRepository
 
     public Task Update(Account aggregate, CancellationToken _)
         => Task.FromResult(_accounts.Update(aggregate));
+
+    public Task Delete(Account aggregate, CancellationToken _)
+        => Task.FromResult(_accounts.Remove(aggregate));
 }

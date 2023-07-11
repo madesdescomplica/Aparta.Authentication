@@ -80,9 +80,9 @@ public class AccountRepositoryTest
         dbAccount.CreatedAt.Should().Be(validAccount.CreatedAt);
     }
 
-    [Fact(DisplayName = nameof(Should_Throw_If_ID_NotFound))]
+    [Fact(DisplayName = nameof(Should_Throw_If_Get_NotFound_ID))]
     [Trait("Integration/Infra.Data", "AccountRepository - Repositories")]
-    public async Task Should_Throw_If_ID_NotFound()
+    public async Task Should_Throw_If_Get_NotFound_ID()
     {
         var exampleId = Guid.NewGuid();
         ApartaAuthenticationDbContext dbContext = _fixture.CreateDbContext();
@@ -151,5 +151,31 @@ public class AccountRepositoryTest
         dbAccount.AccountNumber.Should().Be(validAccount.AccountNumber);
         dbAccount.TaxType.Should().Be(validAccount.TaxType);
         dbAccount.TaxRate.Should().Be(validAccount.TaxRate);
+    }
+
+    [Fact(DisplayName = nameof(Should_Call_Delete_With_Correct_ID))]
+    [Trait("Integration/Infra.Data", "AccountRepository - Repositories")]
+    public async Task Should_Call_Delete_With_Correct_ID()
+    {
+        var exampleAccountList = _fixture.GetExampleAccountsList(5);
+        var accountExample = exampleAccountList[3];
+        var arrangeContext = _fixture.CreateDbContext();
+        await arrangeContext.AddRangeAsync(exampleAccountList);
+        await arrangeContext.SaveChangesAsync();
+        var dbContext = _fixture.CreateDbContext(true);
+        var repository = new Repository.AccountRepository(dbContext);
+
+        await repository.Delete(
+            accountExample, CancellationToken.None
+        );
+        await dbContext.SaveChangesAsync();
+        var assertionContext = _fixture.CreateDbContext(true);
+        var itemsInDatabase = assertionContext
+            .Accounts
+            .AsNoTracking()
+            .ToList();
+
+        itemsInDatabase.Should().HaveCount(4);
+        itemsInDatabase.Should().NotContain(accountExample);
     }
 }

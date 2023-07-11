@@ -1,7 +1,11 @@
-﻿using Aparta.Authentication.API.ApiModels.Response;
-using Aparta.Authentication.Application.UseCases.Account.Common;
+﻿using Aparta.Authentication.Application.UseCases.Account.Common;
 using Aparta.Authentication.Application.UseCases.Account.CreateAccount;
 using Aparta.Authentication.Application.UseCases.Account.GetAccount;
+using Aparta.Authentication.Application.UseCases.Account.UpdateAccount;
+
+using Aparta.Authentication.API.ApiModels.Account;
+using Aparta.Authentication.API.ApiModels.Response;
+
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,6 +46,35 @@ public class AccountController : ControllerBase
     {
         var output = await _mediator.Send(
             new GetAccountInput(id), 
+            cancellationToken
+        );
+        return Ok(new ApiResponse<AccountModelOutput>(output));
+    }
+
+    [HttpPut("{id:guid}")]
+    [ProducesResponseType(typeof(ApiResponse<AccountModelOutput>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status422UnprocessableEntity)]
+    public async Task<IActionResult> Update(
+        [FromRoute] Guid id,
+        [FromBody] UpdateAccountApiInput apiInput,
+        CancellationToken cancellationToken
+    )
+    {
+        var output = await _mediator.Send(
+            new UpdateAccountInput(
+                id: id,
+                clientType: apiInput.ClientType,
+                documentNumber: apiInput.DocumentNumber,
+                name: apiInput.Name,
+                address: apiInput.Address,
+                phone: apiInput.Phone,
+                bankName: apiInput.BankName,
+                agencyNumber: apiInput.AgencyNumber,
+                accountNumber: apiInput.AccountNumber,
+                taxType: apiInput.TaxType,
+                taxRate: apiInput.TaxRate
+            ),
             cancellationToken
         );
         return Ok(new ApiResponse<AccountModelOutput>(output));

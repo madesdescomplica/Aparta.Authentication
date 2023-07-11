@@ -1,6 +1,7 @@
-﻿using Aparta.Authentication.Application.Interfaces;
+﻿using Aparta.Authentication.Domain.Repository;
+
+using Aparta.Authentication.Application.Interfaces;
 using Aparta.Authentication.Application.UseCases.Account.Common;
-using Aparta.Authentication.Domain.Repository;
 
 namespace Aparta.Authentication.Application.UseCases.Account.UpdateAccount;
 

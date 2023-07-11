@@ -1,5 +1,6 @@
 ﻿using DomainEntity = Aparta.Authentication.Domain.Entity;
 
+using Aparta.Authentication.Application.Exceptions;
 using ApplicationUseCase = Aparta.Authentication.Application.UseCases.Account.UpdateAccount;
 using Aparta.Authentication.Application.UseCases.Account.UpdateAccount;
 
@@ -9,9 +10,6 @@ using Aparta.Authentication.Infra.Data.EF.Repositories;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
-using Aparta.Authentication.Application.Exceptions;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Aparta.Authentication.IntegrationTests.Application.UseCases.Account.UpdateAccount;
 

@@ -1,11 +1,11 @@
 ﻿using Aparta.Authentication.Domain.Enum;
+using Aparta.Authentication.Domain.Exceptions;
 using Validations = Aparta.Authentication.Domain.Validation;
 
 using Bogus;
 using Bogus.Extensions.Brazil;
 using FluentAssertions;
 using Xunit;
-using Aparta.Authentication.Domain.Exceptions;
 
 namespace Aparta.Authentication.UnitTests.Domain.Validation.DomainValidation;
 
@@ -19,6 +19,7 @@ public class DomainValidationTest
     {
         var clientType = ClientType.PF;
         string documentNumber = Faker.Person.Cpf();
+        
         Action action = ()
             => Validations.DomainValidation.ValidateCPFAndCNPJ(
                 clientType,
@@ -52,6 +53,7 @@ public class DomainValidationTest
     {
         var clientType = ClientType.PJ;
         string documentNumber = Faker.Company.Cnpj();
+        
         Action action = ()
             => Validations.DomainValidation.ValidateCPFAndCNPJ(
                 clientType,
@@ -67,6 +69,7 @@ public class DomainValidationTest
     {
         var clientType = ClientType.PJ;
         string documentNumber = Faker.Company.Cnpj() + "1";
+        
         Action action = ()
             => Validations.DomainValidation.ValidateCPFAndCNPJ(
                 clientType,
@@ -84,6 +87,7 @@ public class DomainValidationTest
     {
         var clientType = 3;
         string documentNumber = Faker.Company.Cnpj();
+        
         Action action = ()
             => Validations.DomainValidation.ValidateCPFAndCNPJ(
                 (ClientType)clientType,

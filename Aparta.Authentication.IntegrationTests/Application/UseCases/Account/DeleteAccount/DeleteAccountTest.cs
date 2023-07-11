@@ -1,4 +1,5 @@
-﻿using ApplicationUseCase = Aparta.Authentication.Application.UseCases.Account.DeleteAccount;
+﻿using Aparta.Authentication.Application.Exceptions;
+using ApplicationUseCase = Aparta.Authentication.Application.UseCases.Account.DeleteAccount;
 using Aparta.Authentication.Application.UseCases.Account.DeleteAccount;
 
 using Aparta.Authentication.Infra.Data.EF;
@@ -7,9 +8,6 @@ using Aparta.Authentication.Infra.Data.EF.Repositories;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
-using Aparta.Authentication.Application.Exceptions;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Aparta.Authentication.IntegrationTests.Application.UseCases.Account.DeleteAccount;
 
@@ -77,6 +75,5 @@ public class DeleteAccountTest
         await task.Should()
             .ThrowAsync<NotFoundException>()
             .WithMessage($"Account '{input.Id}' not found.");
-
     }
 }

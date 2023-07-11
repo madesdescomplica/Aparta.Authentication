@@ -1,10 +1,11 @@
-﻿using Aparta.Authentication.Infra.Data.EF;
+﻿using Aparta.Authentication.Application.Exceptions;
+
+using Aparta.Authentication.Infra.Data.EF;
 using Repository = Aparta.Authentication.Infra.Data.EF.Repositories;
 
 using FluentAssertions;
-using Xunit;
-using Aparta.Authentication.Application.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using Xunit;
 
 namespace Aparta.Authentication.IntegrationTests.Infra.Data.EF.Repositories.AccountRepository;
 
@@ -22,7 +23,7 @@ public class AccountRepositoryTest
     {
         var clientType = _fixture.GetRandomClientType();
         var validAccount = _fixture.GetValidAccount(clientType);
-        ApartaAuthenticationDbContext dbContext = _fixture.CreateDbContext();
+        var dbContext = _fixture.CreateDbContext();
         var accountRepository = new Repository.AccountRepository(dbContext);
 
         await accountRepository.Insert(validAccount, CancellationToken.None);
@@ -53,7 +54,7 @@ public class AccountRepositoryTest
         var validAccount = _fixture.GetValidAccount(clientType);
         var exampleAccountList = _fixture.GetExampleAccountsList(15);
         exampleAccountList.Add(validAccount);
-        ApartaAuthenticationDbContext dbContext = _fixture.CreateDbContext();
+        var dbContext = _fixture.CreateDbContext();
         
         await dbContext.AddRangeAsync(exampleAccountList);
         await dbContext.SaveChangesAsync(CancellationToken.None);
@@ -85,7 +86,7 @@ public class AccountRepositoryTest
     public async Task Should_Throw_If_Get_NotFound_ID()
     {
         var exampleId = Guid.NewGuid();
-        ApartaAuthenticationDbContext dbContext = _fixture.CreateDbContext();
+        var dbContext = _fixture.CreateDbContext();
 
         await dbContext.AddRangeAsync(_fixture.GetExampleAccountsList(15));
         await dbContext.SaveChangesAsync(CancellationToken.None);

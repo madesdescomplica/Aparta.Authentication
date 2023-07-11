@@ -11,5 +11,4 @@ public class GetAccountTestFixtureCollection
 
 public class GetAccountTestFixture
     : AccountUseCasesBaseFixture
-{
-}
+{ }

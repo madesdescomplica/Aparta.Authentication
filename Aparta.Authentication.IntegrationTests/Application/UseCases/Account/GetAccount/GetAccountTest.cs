@@ -1,9 +1,10 @@
-﻿using UseCase = Aparta.Authentication.Application.UseCases.Account.GetAccount;
+﻿using Aparta.Authentication.Application.Exceptions;
+using UseCase = Aparta.Authentication.Application.UseCases.Account.GetAccount;
+
 using Aparta.Authentication.Infra.Data.EF.Repositories;
 
 using FluentAssertions;
 using Xunit;
-using Aparta.Authentication.Application.Exceptions;
 
 namespace Aparta.Authentication.IntegrationTests.Application.UseCases.Account.GetAccount;
 

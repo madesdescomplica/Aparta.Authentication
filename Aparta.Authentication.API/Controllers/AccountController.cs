@@ -1,5 +1,6 @@
 ﻿using Aparta.Authentication.Application.UseCases.Account.Common;
 using Aparta.Authentication.Application.UseCases.Account.CreateAccount;
+using Aparta.Authentication.Application.UseCases.Account.DeleteAccount;
 using Aparta.Authentication.Application.UseCases.Account.GetAccount;
 using Aparta.Authentication.Application.UseCases.Account.UpdateAccount;
 
@@ -8,7 +9,6 @@ using Aparta.Authentication.API.ApiModels.Response;
 
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Aparta.Authentication.Application.UseCases.Account.DeleteAccount;
 
 namespace Aparta.Authentication.API.Controllers;
 

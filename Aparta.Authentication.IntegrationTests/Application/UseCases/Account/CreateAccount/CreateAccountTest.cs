@@ -3,8 +3,8 @@
 using ApplicationUseCases = Aparta.Authentication.Application.UseCases.Account.CreateAccount;
 using Aparta.Authentication.Application.UseCases.Account.CreateAccount;
 
-using Aparta.Authentication.Infra.Data.EF.Repositories;
 using Aparta.Authentication.Infra.Data.EF;
+using Aparta.Authentication.Infra.Data.EF.Repositories;
 
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;

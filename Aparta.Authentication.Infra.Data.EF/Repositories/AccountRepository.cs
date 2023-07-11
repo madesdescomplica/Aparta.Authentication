@@ -25,12 +25,13 @@ public class AccountRepository : IAccountRepository
 
     public async Task<Account> Get(Guid id, CancellationToken cancellationToken)
     {
-        var category = await _accounts.AsNoTracking().FirstOrDefaultAsync(
+        var account = await _accounts.AsNoTracking().FirstOrDefaultAsync(
             x => x.Id == id,
             cancellationToken
         );
-        NotFoundException.ThrowIfNull(category, $"Account '{id}' not found.");
-        return category!;
+
+        NotFoundException.ThrowIfNull(account, $"Account '{id}' not found.");
+        return account!;
     }
 
     public Task Update(Account aggregate, CancellationToken _)

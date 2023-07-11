@@ -12,10 +12,10 @@ public class BaseFixture
     public BaseFixture()
         => Faker = new Faker("pt_BR");
 
-    public ApartaAccountDbContext CreateDbContext(bool preserveData = false)
+    public ApartaAuthenticationDbContext CreateDbContext(bool preserveData = false)
     {
-        var context = new ApartaAccountDbContext(
-            new DbContextOptionsBuilder<ApartaAccountDbContext>()
+        var context = new ApartaAuthenticationDbContext(
+            new DbContextOptionsBuilder<ApartaAuthenticationDbContext>()
                 .UseInMemoryDatabase("integration-tests-db")
                 .Options
         );

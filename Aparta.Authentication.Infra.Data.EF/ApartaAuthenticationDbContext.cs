@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Aparta.Authentication.Infra.Data.EF;
 
-public class ApartaAccountDbContext : DbContext
+public class ApartaAuthenticationDbContext : DbContext
 {
     public DbSet<Account> Accounts => Set<Account>();
 
-    public ApartaAccountDbContext(
-        DbContextOptions<ApartaAccountDbContext> options
+    public ApartaAuthenticationDbContext(
+        DbContextOptions<ApartaAuthenticationDbContext> options
     ) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder builder)

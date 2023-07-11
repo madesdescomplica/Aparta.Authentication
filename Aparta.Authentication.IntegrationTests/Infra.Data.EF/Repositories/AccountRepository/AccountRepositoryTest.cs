@@ -3,7 +3,6 @@ using Repository = Aparta.Authentication.Infra.Data.EF.Repositories;
 
 using FluentAssertions;
 using Xunit;
-using Aparta.Authentication.Domain.Entity;
 
 namespace Aparta.Authentication.IntegrationTests.Infra.Data.EF.Repositories.AccountRepository;
 
@@ -22,7 +21,7 @@ public class AccountRepositoryTest
     {
         var clientType = _fixture.GetRandomClientType();
         var validAccount = _fixture.GetValidAccount(clientType);
-        ApartaAccountDbContext dbContext = _fixture.CreateDbContext();
+        ApartaAuthenticationDbContext dbContext = _fixture.CreateDbContext();
         var accountRepository = new Repository.AccountRepository(dbContext);
 
         await accountRepository.Insert(validAccount, CancellationToken.None);

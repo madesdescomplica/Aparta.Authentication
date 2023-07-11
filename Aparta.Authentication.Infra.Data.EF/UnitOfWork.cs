@@ -4,9 +4,9 @@ namespace Aparta.Authentication.Infra.Data.EF;
 
 public class UnitOfWork : IUnitOfWork
 {
-    private readonly ApartaAccountDbContext _context;
+    private readonly ApartaAuthenticationDbContext _context;
 
-    public UnitOfWork(ApartaAccountDbContext context)
+    public UnitOfWork(ApartaAuthenticationDbContext context)
         => _context = context;
 
     public Task Commit(CancellationToken cancellationToken)

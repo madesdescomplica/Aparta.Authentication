@@ -1,15 +1,20 @@
-﻿using Aparta.Authentication.Domain.Entity;
-using Aparta.Authentication.Domain.Enum;
-
-using Aparta.Authentication.IntegrationTests.Base;
-
-using Bogus;
+﻿using Aparta.Authentication.Domain.Enum;
+using Aparta.Authentication.EndToEndTests.Base;
 using Bogus.Extensions.Brazil;
 
-namespace Aparta.Authentication.IntegrationTests.Application.Common;
+namespace Aparta.Authentication.EndToEndTests.Api.Account.Common;
 
-public class AccountUseCasesBaseFixture : BaseFixture
+public class AccountBaseFixture : BaseFixture
 {
+    public AccountPersistence Persistence;
+
+    public AccountBaseFixture() : base()
+    {
+        Persistence = new AccountPersistence(
+            CreateDbContext()
+        );
+    }
+
     public ClientType GetRandomClientType()
     {
         List<ClientType> clientTypes = new()
@@ -87,7 +92,7 @@ public class AccountUseCasesBaseFixture : BaseFixture
     public float GetValidTaxRate()
         => (float)Faker.Random.Double(0, 101);
 
-    public Account GetValidAccount(ClientType clientType)
+    public Domain.Entity.Account GetValidAccount(ClientType clientType)
         => new(
             clientType,
             GetRandomDocumentNumber(clientType),
@@ -100,10 +105,4 @@ public class AccountUseCasesBaseFixture : BaseFixture
             GetRandomTaxType(),
             GetValidTaxRate()
         );
-
-    public List<Account> GetExampleAccountsList(int length = 10)
-        => Enumerable
-            .Range(1, length)
-            .Select(_ => GetValidAccount(GetRandomClientType()))
-            .ToList();
 }

@@ -46,6 +46,33 @@ public class Account : AggregateRoot
         Validate();
     }
 
+    public void Update(
+        ClientType clientType,
+        string documentNumber,
+        string name,
+        string address,
+        string phone,
+        string bankName,
+        string agencyNumber,
+        string accountNumber,
+        TaxType taxType,
+        float taxRate
+    )
+    {
+        ClientType = clientType;
+        DocumentNumber = documentNumber;
+        Name = name;
+        Address = address;
+        Phone = phone;
+        BankName = bankName;
+        AgencyNumber = agencyNumber;
+        AccountNumber = accountNumber;
+        TaxType = taxType;
+        TaxRate = taxRate;
+
+        Validate();
+    }
+
     private void Validate()
     {
         DomainValidation.ValidateCPFAndCNPJ(ClientType, DocumentNumber);

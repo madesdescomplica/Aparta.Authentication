@@ -3,6 +3,7 @@ using Repository = Aparta.Authentication.Infra.Data.EF.Repositories;
 
 using FluentAssertions;
 using Xunit;
+using Aparta.Authentication.Application.Exceptions;
 
 namespace Aparta.Authentication.IntegrationTests.Infra.Data.EF.Repositories.AccountRepository;
 
@@ -76,5 +77,25 @@ public class AccountRepositoryTest
         dbAccount.TaxRate.Should().Be(validAccount.TaxRate);
         dbAccount.Id.Should().NotBeEmpty();
         dbAccount.CreatedAt.Should().Be(validAccount.CreatedAt);
+    }
+
+    [Fact(DisplayName = nameof(Should_Throw_If_ID_NotFound))]
+    [Trait("Integration/Infra.Data", "AccountRepository - Repositories")]
+    public async Task Should_Throw_If_ID_NotFound()
+    {
+        ApartaAuthenticationDbContext dbContext = _fixture.CreateDbContext();
+        var exampleId = Guid.NewGuid();
+        await dbContext.AddRangeAsync(_fixture.GetExampleAccountsList(15));
+        await dbContext.SaveChangesAsync(CancellationToken.None);
+        var accountRepository = new Repository.AccountRepository(dbContext);
+
+        var task = async () => await accountRepository.Get(
+            exampleId,
+            CancellationToken.None
+        );
+
+        await task.Should()
+            .ThrowAsync<NotFoundException>()
+            .WithMessage($"Account '{exampleId}' not found.");
     }
 }

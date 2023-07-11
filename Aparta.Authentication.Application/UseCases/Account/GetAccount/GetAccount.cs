@@ -16,8 +16,8 @@ public class GetAccount : IGetAccount
     )
     {
         var account = await _accountRepository.Get(
-            request.Id,
-            cancellationToken
+            id: request.Id,
+            cancellationToken: cancellationToken
         );
         return AccountModelOutput.FromAccount(account);
     }

@@ -1,6 +1,7 @@
-﻿using Aparta.Authentication.Application.UseCases.Account.Common;
+﻿using Aparta.Authentication.API.ApiModels.Response;
+using Aparta.Authentication.Application.UseCases.Account.Common;
 using Aparta.Authentication.Application.UseCases.Account.CreateAccount;
-
+using Aparta.Authentication.Application.UseCases.Account.GetAccount;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,5 +30,20 @@ public class AccountController : ControllerBase
             new { output.Id },
             output
         );
+    }
+
+    [HttpGet("{id:guid}")]
+    [ProducesResponseType(typeof(ApiResponse<AccountModelOutput>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetById(
+        [FromRoute] Guid id,
+        CancellationToken cancellationToken
+    )
+    {
+        var output = await _mediator.Send(
+            new GetAccountInput(id), 
+            cancellationToken
+        );
+        return Ok(new ApiResponse<AccountModelOutput>(output));
     }
 }

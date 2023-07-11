@@ -1,17 +1,15 @@
-﻿using Aparta.Authentication.Domain.Repository;
-
-using Aparta.Authentication.Application.Interfaces;
+﻿using Aparta.Authentication.Application.Interfaces;
 using Aparta.Authentication.Application.UseCases.Account.Common;
-using MediatR;
+using Aparta.Authentication.Domain.Repository;
 
-namespace Aparta.Authentication.Application.UseCases.Account.CreateAccount;
+namespace Aparta.Authentication.Application.UseCases.Account.UpdateAccount;
 
-public class CreateAccount : ICreateAccount
+public class UpdateAccount : IUpdateAccount
 {
     private readonly IAccountRepository _accountRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public CreateAccount(
+    public UpdateAccount(
         IAccountRepository accountRepository,
         IUnitOfWork unitOfWork
     )
@@ -21,11 +19,15 @@ public class CreateAccount : ICreateAccount
     }
 
     public async Task<AccountModelOutput> Handle(
-        CreateAccountInput request,
+        UpdateAccountInput request,
         CancellationToken cancellationToken
     )
     {
-        var account = new Domain.Entity.Account(
+        var account = await _accountRepository.Get(
+            request.Id, 
+            cancellationToken
+        );
+        account.Update(
             clientType: request.ClientType,
             documentNumber: request.DocumentNumber,
             name: request.Name,
@@ -38,13 +40,9 @@ public class CreateAccount : ICreateAccount
             taxRate: request.TaxRate
         );
 
-        await _accountRepository.Insert(
-            account,
-            cancellationToken
-        );
+        await _accountRepository.Update(account, cancellationToken);
         await _unitOfWork.Commit(cancellationToken);
 
         return AccountModelOutput.FromAccount(account);
     }
 }
-

@@ -32,4 +32,7 @@ public class AccountRepository : IAccountRepository
         NotFoundException.ThrowIfNull(category, $"Account '{id}' not found.");
         return category!;
     }
+
+    public Task Update(Account aggregate, CancellationToken _)
+        => Task.FromResult(_accounts.Update(aggregate));
 }

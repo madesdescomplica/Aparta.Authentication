@@ -32,7 +32,7 @@ public class AccountUseCasesBaseFixture : BaseFixture
             _ => throw new NotImplementedException()
         };
 
-    public string GetValidCategoryName()
+    public string GetValidName()
     {
         var accountName = "";
 
@@ -91,7 +91,7 @@ public class AccountUseCasesBaseFixture : BaseFixture
         => new(
             clientType,
             GetRandomDocumentNumber(clientType),
-            GetValidCategoryName(),
+            GetValidName(),
             GetValidAddress(),
             GetValidPhone(),
             GetValidBankName(),

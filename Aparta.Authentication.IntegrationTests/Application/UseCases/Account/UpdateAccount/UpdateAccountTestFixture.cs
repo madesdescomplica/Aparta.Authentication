@@ -21,7 +21,7 @@ public class UpdateAccountTestFixture
             id ?? Guid.NewGuid(),
             clientType,
             GetRandomDocumentNumber(clientType),
-            GetValidCategoryName(),
+            GetValidName(),
             GetValidAddress(),
             GetValidPhone(),
             GetValidBankName(),

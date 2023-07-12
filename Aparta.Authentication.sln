@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.33808.371
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{41B13A6C-73A6-46A6-99F8-BA352F3BEFD7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{01FF6C61-B411-4704-8749-E9BCD8BAF934}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{01FF6C61-B411-4704-8749-E9BCD8BAF934}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aparta.Authentication.UnitTests", "Aparta.Authentication.UnitTests\Aparta.Authentication.UnitTests.csproj", "{EB2AEF42-8743-43E3-9A99-AA64B8221E21}"
 EndProject
@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aparta.Authentication.Integ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aparta.Authentication.Application", "Aparta.Authentication.Application\Aparta.Authentication.Application.csproj", "{72BA95DC-03A1-435A-B0D9-0D1C40022C65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aparta.Authentication.API", "Aparta.Authentication.API\Aparta.Authentication.API.csproj", "{EDDFBBE4-0E87-4D81-908E-134B8F6B78D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aparta.Authentication.API", "Aparta.Authentication.API\Aparta.Authentication.API.csproj", "{EDDFBBE4-0E87-4D81-908E-134B8F6B78D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aparta.Authentication.EndToEndTests", "Aparta.Authentication.EndToEndTests\Aparta.Authentication.EndToEndTests.csproj", "{E3604C88-B0A2-4530-874E-15D1D44D00ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,10 @@ Global
 		{EDDFBBE4-0E87-4D81-908E-134B8F6B78D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDDFBBE4-0E87-4D81-908E-134B8F6B78D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDDFBBE4-0E87-4D81-908E-134B8F6B78D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3604C88-B0A2-4530-874E-15D1D44D00ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3604C88-B0A2-4530-874E-15D1D44D00ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3604C88-B0A2-4530-874E-15D1D44D00ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3604C88-B0A2-4530-874E-15D1D44D00ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 		{FFC1854A-2E1F-4F65-955D-6DBFF00708DD} = {01FF6C61-B411-4704-8749-E9BCD8BAF934}
 		{72BA95DC-03A1-435A-B0D9-0D1C40022C65} = {41B13A6C-73A6-46A6-99F8-BA352F3BEFD7}
 		{EDDFBBE4-0E87-4D81-908E-134B8F6B78D9} = {41B13A6C-73A6-46A6-99F8-BA352F3BEFD7}
+		{E3604C88-B0A2-4530-874E-15D1D44D00ED} = {01FF6C61-B411-4704-8749-E9BCD8BAF934}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BD912CDB-F454-4B88-AD44-E9A0DF467A3E}

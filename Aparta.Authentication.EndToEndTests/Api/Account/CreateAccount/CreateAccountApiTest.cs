@@ -1,71 +1,66 @@
-﻿using Aparta.Authentication.Application.UseCases.Account.Common;
-
-using Aparta.Authentication.API.ApiModels.Response;
+﻿using Aparta.Authentication.API.ApiModels.Response;
+using Aparta.Authentication.Application.UseCases.Account.Common;
 
 using FluentAssertions;
 using System.Net;
 using Xunit;
 
-namespace Aparta.Authentication.EndToEndTests.Api.CreateAccount;
+namespace Aparta.Authentication.EndToEndTests.Api.Account.CreateAccount;
 
 [Collection(nameof(CreateAccountApiTestFixture))]
 public class CreateAccountApiTest
-    : IDisposable
 {
     private readonly CreateAccountApiTestFixture _fixture;
 
     public CreateAccountApiTest(CreateAccountApiTestFixture fixture)
         => _fixture = fixture;
 
-    [Fact(DisplayName = nameof(CreateAccount))]
-    [Trait("EndToEnd/API", "Account/Create - Endpoints")]
-    public async Task CreateAccount()
+    [Fact(DisplayName = nameof(Should_CreateAccount))]
+    [Trait("EndToEnd/API", "Account - Endpoints")]
+    public async Task Should_CreateAccount()
     {
-        var input = _fixture.GetInput();
+        // Arrange
+        var input = _fixture.GetExampleInput();
 
-        var (response, output) = await _fixture.
-            ApiClient.Post<ApiResponse<AccountModelOutput>>(
-                "/Account",
+        // Act
+        var (response, output) = await _fixture
+            .ApiClient
+            .Post<AccountModelOutput>(
+                "/account",
                 input
             );
-        var dbCategory = await _fixture
+        var dbAccount = await _fixture
             .Persistence
-            .GetById(output!.Data.Id);
+            .GetById(output!.Id);
 
         response.Should().NotBeNull();
         response!.StatusCode.Should().Be(HttpStatusCode.Created);
-
+        dbAccount.Should().NotBeNull();
         output.Should().NotBeNull();
-        output.Data.Should().NotBeNull();
-        output.Data.Id.Should().NotBeEmpty();
-        output.Data.ClientType.Should().Be(input.ClientType);
-        output.Data.DocumentNumber.Should().Be(input.DocumentNumber);
-        output.Data.Name.Should().Be(input.Name);
-        output.Data.Address.Should().Be(input.Address);
-        output.Data.Phone.Should().Be(input.Phone);
-        output.Data.BankName.Should().Be(input.BankName);
-        output.Data.AgencyNumber.Should().Be(input.AgencyNumber);
-        output.Data.AccountNumber.Should().Be(input.AccountNumber);
-        output.Data.TaxType.Should().Be(input.TaxType);
-        output.Data.TaxRate.Should().Be(input.TaxRate);
-        output.Data.CreatedAt.Should()
-            .NotBeSameDateAs(default);
+        output.Id.Should().NotBeEmpty();
+        output.ClientType.Should().Be(input.ClientType);
+        output.DocumentNumber.Should().Be(input.DocumentNumber);
+        output.Name.Should().Be(input.Name);
+        output.Address.Should().Be(input.Address);
+        output.Phone.Should().Be(input.Phone);
+        output.BankName.Should().Be(input.BankName);
+        output.AgencyNumber.Should().Be(input.AgencyNumber);
+        output.AccountNumber.Should().Be(input.AccountNumber);
+        output.TaxType.Should().Be(input.TaxType);
+        output.TaxRate.Should().Be(input.TaxRate);
+        output.CreatedAt.Should().NotBeSameDateAs(default);
 
-        dbCategory.Should().NotBeNull();
-        dbCategory!.Id.Should().NotBeEmpty();
-        dbCategory.ClientType.Should().Be(input.ClientType);
-        dbCategory.DocumentNumber.Should().Be(input.DocumentNumber);
-        dbCategory.Name.Should().Be(input.Name);
-        dbCategory.Address.Should().Be(input.Address);
-        dbCategory.Phone.Should().Be(input.Phone);
-        dbCategory.BankName.Should().Be(input.BankName);
-        dbCategory.AgencyNumber.Should().Be(input.AgencyNumber);
-        dbCategory.AccountNumber.Should().Be(input.AccountNumber);
-        dbCategory.TaxType.Should().Be(input.TaxType);
-        dbCategory.TaxRate.Should().Be(input.TaxRate);
-        dbCategory.CreatedAt.Should()
-            .NotBeSameDateAs(default);
+        dbAccount!.Id.Should().NotBeEmpty();
+        dbAccount.ClientType.Should().Be(input.ClientType);
+        dbAccount.DocumentNumber.Should().Be(input.DocumentNumber);
+        dbAccount.Name.Should().Be(input.Name);
+        dbAccount.Address.Should().Be(input.Address);
+        dbAccount.Phone.Should().Be(input.Phone);
+        dbAccount.BankName.Should().Be(input.BankName);
+        dbAccount.AgencyNumber.Should().Be(input.AgencyNumber);
+        dbAccount.AccountNumber.Should().Be(input.AccountNumber);
+        dbAccount.TaxType.Should().Be(input.TaxType);
+        dbAccount.TaxRate.Should().Be(input.TaxRate);
+        dbAccount.CreatedAt.Should().NotBeSameDateAs(default);
     }
-
-    public void Dispose() => _fixture.CleanPersistence();
 }

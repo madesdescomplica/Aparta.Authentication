@@ -1,10 +1,14 @@
-﻿using Aparta.Authentication.Domain.Enum;
+﻿using DomainEntity = Aparta.Authentication.Domain.Entity;
+using Aparta.Authentication.Domain.Enum;
+
 using Aparta.Authentication.EndToEndTests.Base;
+
 using Bogus.Extensions.Brazil;
 
 namespace Aparta.Authentication.EndToEndTests.Api.Account.Common;
 
-public class AccountBaseFixture : BaseFixture
+public class AccountBaseFixture
+    : BaseFixture
 {
     public AccountPersistence Persistence;
 
@@ -37,7 +41,7 @@ public class AccountBaseFixture : BaseFixture
             _ => throw new NotImplementedException()
         };
 
-    public string GetValidCategoryName()
+    public string GetValidName()
     {
         var accountName = "";
 
@@ -91,18 +95,4 @@ public class AccountBaseFixture : BaseFixture
 
     public float GetValidTaxRate()
         => (float)Faker.Random.Double(0, 101);
-
-    public Domain.Entity.Account GetValidAccount(ClientType clientType)
-        => new(
-            clientType,
-            GetRandomDocumentNumber(clientType),
-            GetValidCategoryName(),
-            GetValidAddress(),
-            GetValidPhone(),
-            GetValidBankName(),
-            GetValidAgencyNumber(),
-            GetValidAccountNumber(),
-            GetRandomTaxType(),
-            GetValidTaxRate()
-        );
 }

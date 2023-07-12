@@ -2,25 +2,33 @@
 
 using Aparta.Authentication.EndToEndTests.Api.Account.Common;
 
-namespace Aparta.Authentication.EndToEndTests.Api.CreateAccount;
+using Xunit;
+
+namespace Aparta.Authentication.EndToEndTests.Api.Account.CreateAccount;
+
+[CollectionDefinition(nameof(CreateAccountApiTestFixture))]
+public class CreateAccountApiTestFixtureCollection
+    : ICollectionFixture<CreateAccountApiTestFixture>
+{
+}
 
 public class CreateAccountApiTestFixture
     : AccountBaseFixture
 {
-    public CreateAccountInput GetInput()
+    public CreateAccountInput GetExampleInput()
     {
-        var account = GetValidAccount(GetRandomClientType());
-        return new CreateAccountInput(
-            account.ClientType,
-            account.DocumentNumber,
-            account.Name,
-            account.Address,
-            account.Phone,
-            account.BankName,
-            account.AgencyNumber,
-            account.AccountNumber,
-            account.TaxType,
-            account.TaxRate
+        var clientType = GetRandomClientType();
+        return new(
+            clientType,
+            GetRandomDocumentNumber(clientType),
+            GetValidName(),
+            GetValidAddress(),
+            GetValidPhone(),
+            GetValidBankName(),
+            GetValidAgencyNumber(),
+            GetValidAccountNumber(),
+            GetRandomTaxType(),
+            GetValidTaxRate()
         );
     }
 }

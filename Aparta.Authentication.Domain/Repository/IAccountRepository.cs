@@ -5,4 +5,4 @@ namespace Aparta.Authentication.Domain.Repository;
 
 public interface IAccountRepository
     : IGenericRepository<Account>
-{}
+{ }

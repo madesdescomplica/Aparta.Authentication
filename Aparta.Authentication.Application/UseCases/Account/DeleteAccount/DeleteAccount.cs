@@ -1,5 +1,5 @@
-﻿using Aparta.Authentication.Application.Interfaces;
-using Aparta.Authentication.Domain.Repository;
+﻿using Aparta.Authentication.Domain.Repository;
+using Aparta.Authentication.Application.Interfaces;
 
 using MediatR;
 
@@ -25,10 +25,13 @@ public class DeleteAccount : IDeleteAccount
     )
     {
         var account = await _accountRepository.Get(
-            request.Id,
-            cancellationToken
+            id: request.Id,
+            cancellationToken: cancellationToken
         );
-        await _accountRepository.Delete(account, cancellationToken);
+        await _accountRepository.Delete(
+            aggregate: account, 
+            cancellationToken: cancellationToken
+        );
         await _unitOfWork.Commit(cancellationToken);
         return Unit.Value;
     }

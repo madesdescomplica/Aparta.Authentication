@@ -51,7 +51,8 @@ public class UpdateAccountTest
             .FindAsync(output.Id);
 
         dbAccount.Should().NotBeNull();
-        dbAccount!.ClientType.Should().Be(input.ClientType);
+        dbAccount!.Id.Should().NotBeEmpty();
+        dbAccount.ClientType.Should().Be(input.ClientType);
         dbAccount.DocumentNumber.Should().Be(input.DocumentNumber);
         dbAccount.Name.Should().Be(input.Name);
         dbAccount.Address.Should().Be(input.Address);
@@ -61,11 +62,11 @@ public class UpdateAccountTest
         dbAccount.AccountNumber.Should().Be(input.AccountNumber);
         dbAccount.TaxType.Should().Be(input.TaxType);
         dbAccount.TaxRate.Should().Be(input.TaxRate);
-        dbAccount.Id.Should().NotBeEmpty();
         dbAccount.CreatedAt.Should().Be(output.CreatedAt);
 
         output.Should().NotBeNull();
-        output!.ClientType.Should().Be(input.ClientType);
+        output!.Id.Should().NotBeEmpty();
+        output.ClientType.Should().Be(input.ClientType);
         output.DocumentNumber.Should().Be(input.DocumentNumber);
         output.Name.Should().Be(input.Name);
         output.Address.Should().Be(input.Address);
@@ -75,7 +76,6 @@ public class UpdateAccountTest
         output.AccountNumber.Should().Be(input.AccountNumber);
         output.TaxType.Should().Be(input.TaxType);
         output.TaxRate.Should().Be(input.TaxRate);
-        output.Id.Should().NotBeEmpty();
         output.CreatedAt.Should().NotBe(default);
     }
 

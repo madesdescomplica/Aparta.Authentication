@@ -40,7 +40,6 @@ public class DeleteAccountTest
         var input = new DeleteAccountInput(accountExample.Id);
 
         await useCase.Handle(input, CancellationToken.None);
-
         var assertDbContext = _fixture.CreateDbContext(true);
         var dbAccountDeleted = await assertDbContext
             .Accounts

@@ -62,7 +62,8 @@ public class GetAccountTest
         var task = async ()
             => await useCase.Handle(input, CancellationToken.None);
 
-        await task.Should().ThrowAsync<NotFoundException>()
+        await task.Should()
+            .ThrowAsync<NotFoundException>()
             .WithMessage($"Account '{input.Id}' not found.");
     }
 }

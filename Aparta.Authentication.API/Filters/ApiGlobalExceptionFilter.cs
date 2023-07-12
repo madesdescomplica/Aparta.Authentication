@@ -1,5 +1,5 @@
-﻿using Aparta.Authentication.Application.Exceptions;
-using Aparta.Authentication.Domain.Exceptions;
+﻿using Aparta.Authentication.Domain.Exceptions;
+using Aparta.Authentication.Application.Exceptions;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -21,14 +21,7 @@ public class ApiGlobalExceptionFilter : IExceptionFilter
         if (_env.IsDevelopment())
             details.Extensions.Add("StackTrace", exception.StackTrace);
 
-        if (exception is EntityValidationException)
-        {
-            details.Title = "One or more validation errors ocurred";
-            details.Status = StatusCodes.Status422UnprocessableEntity;
-            details.Type = "UnprocessableEntity";
-            details.Detail = exception!.Message;
-        }
-        else if (exception is NotFoundException)
+        if (exception is NotFoundException)
         {
             details.Title = "Not Found";
             details.Status = StatusCodes.Status404NotFound;
@@ -36,9 +29,17 @@ public class ApiGlobalExceptionFilter : IExceptionFilter
             details.Detail = exception!.Message;
         }
 
+        else if (exception is EntityValidationException)
+        {
+            details.Title = "One or more validation errors occurred";
+            details.Status = StatusCodes.Status422UnprocessableEntity;
+            details.Type = "UnprocessableEntity";
+            details.Detail = exception!.Message;
+        }
+
         else
         {
-            details.Title = "An unexpected error ocurred";
+            details.Title = "An unexpected error occurred";
             details.Status = StatusCodes.Status422UnprocessableEntity;
             details.Type = "UnexpectedError";
             details.Detail = exception.Message;

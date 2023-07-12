@@ -48,17 +48,17 @@ public class AccountModelOutput
 
     public static AccountModelOutput FromAccount(Domain.Entity.Account account)
         => new(
-            account.Id,
-            account.ClientType,
-            account.DocumentNumber,
-            account.Name,
-            account.Address,
-            account.Phone,
-            account.BankName,
-            account.AgencyNumber,
-            account.AccountNumber,
-            account.TaxType,
-            account.TaxRate,
-            account.CreatedAt
+            id: account.Id,
+            clientType: account.ClientType,
+            documentNumber: account.DocumentNumber,
+            name: account.Name,
+            address: account.Address,
+            phone: account.Phone,
+            bankName: account.BankName,
+            agencyNumber: account.AgencyNumber,
+            accountNumber: account.AccountNumber,
+            taxType: account.TaxType,
+            taxRate: account.TaxRate,
+            createdAt: account.CreatedAt
         );
 }

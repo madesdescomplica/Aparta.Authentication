@@ -38,8 +38,8 @@ public class CreateAccount : ICreateAccount
         );
 
         await _accountRepository.Insert(
-            account,
-            cancellationToken
+            aggregate: account,
+            cancellationToken: cancellationToken
         );
         await _unitOfWork.Commit(cancellationToken);
 

@@ -25,8 +25,8 @@ public class UpdateAccount : IUpdateAccount
     )
     {
         var account = await _accountRepository.Get(
-            request.Id, 
-            cancellationToken
+            id: request.Id, 
+            cancellationToken: cancellationToken
         );
         account.Update(
             clientType: request.ClientType,
@@ -41,7 +41,10 @@ public class UpdateAccount : IUpdateAccount
             taxRate: request.TaxRate
         );
 
-        await _accountRepository.Update(account, cancellationToken);
+        await _accountRepository.Update(
+            aggregate: account, 
+            cancellationToken: cancellationToken
+        );
         await _unitOfWork.Commit(cancellationToken);
 
         return AccountModelOutput.FromAccount(account);

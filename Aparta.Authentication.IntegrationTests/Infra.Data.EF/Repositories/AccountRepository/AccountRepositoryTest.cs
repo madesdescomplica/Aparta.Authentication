@@ -1,6 +1,5 @@
 ﻿using Aparta.Authentication.Application.Exceptions;
 
-using Aparta.Authentication.Infra.Data.EF;
 using Repository = Aparta.Authentication.Infra.Data.EF.Repositories;
 
 using FluentAssertions;
@@ -29,10 +28,12 @@ public class AccountRepositoryTest
         await accountRepository.Insert(validAccount, CancellationToken.None);
         await dbContext.SaveChangesAsync(CancellationToken.None);
         var dbAccount = await (_fixture.CreateDbContext(true))
-            .Accounts.FindAsync(validAccount.Id);
+            .Accounts
+            .FindAsync(validAccount.Id);
 
         dbAccount.Should().NotBeNull();
-        dbAccount!.ClientType.Should().Be(validAccount.ClientType);
+        dbAccount!.Id.Should().NotBeEmpty();
+        dbAccount.ClientType.Should().Be(validAccount.ClientType);
         dbAccount.DocumentNumber.Should().Be(validAccount.DocumentNumber);
         dbAccount.Name.Should().Be(validAccount.Name);
         dbAccount.Address.Should().Be(validAccount.Address);
@@ -42,7 +43,6 @@ public class AccountRepositoryTest
         dbAccount.AccountNumber.Should().Be(validAccount.AccountNumber);
         dbAccount.TaxType.Should().Be(validAccount.TaxType);
         dbAccount.TaxRate.Should().Be(validAccount.TaxRate);
-        dbAccount.Id.Should().NotBeEmpty();
         dbAccount.CreatedAt.Should().Be(validAccount.CreatedAt);
     }
     
@@ -77,7 +77,6 @@ public class AccountRepositoryTest
         dbAccount.AccountNumber.Should().Be(validAccount.AccountNumber);
         dbAccount.TaxType.Should().Be(validAccount.TaxType);
         dbAccount.TaxRate.Should().Be(validAccount.TaxRate);
-        dbAccount.Id.Should().NotBeEmpty();
         dbAccount.CreatedAt.Should().Be(validAccount.CreatedAt);
     }
 
@@ -87,11 +86,10 @@ public class AccountRepositoryTest
     {
         var exampleId = Guid.NewGuid();
         var dbContext = _fixture.CreateDbContext();
+        var accountRepository = new Repository.AccountRepository(dbContext);
 
         await dbContext.AddRangeAsync(_fixture.GetExampleAccountsList(15));
         await dbContext.SaveChangesAsync(CancellationToken.None);
-        var accountRepository = new Repository.AccountRepository(dbContext);
-
         var task = async () => await accountRepository.Get(
             exampleId,
             CancellationToken.None

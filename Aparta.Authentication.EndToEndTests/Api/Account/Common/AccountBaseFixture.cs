@@ -1,5 +1,4 @@
-﻿using DomainEntity = Aparta.Authentication.Domain.Entity;
-using Aparta.Authentication.Domain.Enum;
+﻿using Aparta.Authentication.Domain.Enum;
 
 using Aparta.Authentication.EndToEndTests.Base;
 

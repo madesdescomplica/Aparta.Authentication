@@ -38,10 +38,12 @@ public class CreateAccountTest
         );
 
         var dbAccount = await (_fixture.CreateDbContext(true))
-            .Accounts.FindAsync(output.Id);
+            .Accounts
+            .FindAsync(output.Id);
 
         dbAccount.Should().NotBeNull();
-        dbAccount!.ClientType.Should().Be(input.ClientType);
+        dbAccount!.Id.Should().NotBeEmpty();
+        dbAccount.ClientType.Should().Be(input.ClientType);
         dbAccount.DocumentNumber.Should().Be(input.DocumentNumber);
         dbAccount.Name.Should().Be(input.Name);
         dbAccount.Address.Should().Be(input.Address);
@@ -51,7 +53,6 @@ public class CreateAccountTest
         dbAccount.AccountNumber.Should().Be(input.AccountNumber);
         dbAccount.TaxType.Should().Be(input.TaxType);
         dbAccount.TaxRate.Should().Be(input.TaxRate);
-        dbAccount.Id.Should().NotBeEmpty();
         dbAccount.CreatedAt.Should().Be(output.CreatedAt);
 
         output.Should().NotBeNull();
@@ -91,13 +92,13 @@ public class CreateAccountTest
 
         var task = async ()
             => await useCase.Handle(input, CancellationToken.None);
-
-        await task.Should().ThrowAsync<EntityValidationException>()
-            .WithMessage(expectedExceptionMessage);
         var dbCategoriesList = _fixture.CreateDbContext(true)
             .Accounts
             .AsNoTracking()
             .ToList();
+
+        await task.Should().ThrowAsync<EntityValidationException>()
+            .WithMessage(expectedExceptionMessage);
         dbCategoriesList.Should().HaveCount(0);
     }
 }

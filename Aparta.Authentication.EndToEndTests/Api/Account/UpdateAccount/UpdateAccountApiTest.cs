@@ -133,6 +133,67 @@ public class UpdateAccountApiTest
         dbAccount.CreatedAt.Should().NotBeSameDateAs(default);
     }
 
+    [Fact(DisplayName = nameof(Should_UpdateAccount_Only_ClientType_PJ_And_DocumentNumber))]
+    [Trait("EndToEnd/API", "Account/Update - Endpoints")]
+    public async void Should_UpdateAccount_Only_ClientType_PJ_And_DocumentNumber()
+    {
+        var exampleAccountsList = _fixture.GetExampleAccountsList(20);
+        await _fixture.Persistence.InserList(exampleAccountsList);
+        var exampleAccount = exampleAccountsList[10];
+        var clientType = Domain.Enum.ClientType.PJ;
+        var input = new UpdateAccountApiInput(
+            clientType: clientType,
+            documentNumber: _fixture.GetRandomDocumentNumber(clientType),
+            name: exampleAccount.Name,
+            address: exampleAccount.Address,
+            phone: exampleAccount.Phone,
+            bankName: exampleAccount.BankName,
+            agencyNumber: exampleAccount.AgencyNumber,
+            accountNumber: exampleAccount.AccountNumber,
+            taxType: exampleAccount.TaxType,
+            taxRate: exampleAccount.TaxRate
+        );
+
+        var (response, output) = await _fixture
+            .ApiClient
+            .Put<ApiResponse<AccountModelOutput>>(
+                $"/account/{exampleAccount.Id}",
+                input
+            );
+        var dbAccount = await _fixture
+            .Persistence.GetById(exampleAccount.Id);
+
+        response.Should().NotBeNull();
+        response!.StatusCode.Should().Be((HttpStatusCode)StatusCodes.Status200OK);
+        output.Should().NotBeNull();
+        output!.Data.Id.Should().Be(exampleAccount.Id);
+        output.Data.ClientType.Should().Be(input.ClientType);
+        output.Data.DocumentNumber.Should().Be(input.DocumentNumber);
+        output.Data.Name.Should().Be(exampleAccount.Name);
+        output.Data.Address.Should().Be(exampleAccount.Address);
+        output.Data.Phone.Should().Be(exampleAccount.Phone);
+        output.Data.BankName.Should().Be(exampleAccount.BankName);
+        output.Data.AgencyNumber.Should().Be(exampleAccount.AgencyNumber);
+        output.Data.AccountNumber.Should().Be(exampleAccount.AccountNumber);
+        output.Data.TaxType.Should().Be(exampleAccount.TaxType);
+        output.Data.TaxRate.Should().Be(exampleAccount.TaxRate);
+        output.Data.CreatedAt.Should().NotBeSameDateAs(default);
+
+        dbAccount.Should().NotBeNull();
+        dbAccount!.Id.Should().NotBeEmpty();
+        dbAccount.ClientType.Should().Be(input.ClientType);
+        dbAccount.DocumentNumber.Should().Be(input.DocumentNumber);
+        dbAccount.Name.Should().Be(exampleAccount.Name);
+        dbAccount.Address.Should().Be(exampleAccount.Address);
+        dbAccount.Phone.Should().Be(exampleAccount.Phone);
+        dbAccount.BankName.Should().Be(exampleAccount.BankName);
+        dbAccount.AgencyNumber.Should().Be(exampleAccount.AgencyNumber);
+        dbAccount.AccountNumber.Should().Be(exampleAccount.AccountNumber);
+        dbAccount.TaxType.Should().Be(exampleAccount.TaxType);
+        dbAccount.TaxRate.Should().Be(exampleAccount.TaxRate);
+        dbAccount.CreatedAt.Should().NotBeSameDateAs(default);
+    }
+
     [Fact(DisplayName = nameof(Should_Throw_An_Error_404_When_Not_Found_An_Account_To_Update))]
     [Trait("EndToEnd/API", "Account/Update - Endpoints")]
     public async void Should_Throw_An_Error_404_When_Not_Found_An_Account_To_Update()

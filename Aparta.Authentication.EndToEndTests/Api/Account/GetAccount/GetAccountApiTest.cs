@@ -3,9 +3,9 @@ using Aparta.Authentication.API.ApiModels.Response;
 
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using Xunit;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Aparta.Authentication.EndToEndTests.Api.Account.GetAccount;
 

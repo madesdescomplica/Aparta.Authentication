@@ -1,9 +1,9 @@
 ﻿using Aparta.Authentication.Domain.Repository;
-using Aparta.Authentication.Application.Interfaces;
+using Aparta.Authentication.UseCases.Interfaces;
 
 using MediatR;
 
-namespace Aparta.Authentication.Application.UseCases.Account.DeleteAccount;
+namespace Aparta.Authentication.UseCases.UseCases.Account.DeleteAccount;
 
 public class DeleteAccount : IDeleteAccount
 {

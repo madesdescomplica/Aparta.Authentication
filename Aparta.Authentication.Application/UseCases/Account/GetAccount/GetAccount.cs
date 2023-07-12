@@ -1,7 +1,7 @@
 ﻿using Aparta.Authentication.Domain.Repository;
-using Aparta.Authentication.Application.UseCases.Account.Common;
+using Aparta.Authentication.UseCases.UseCases.Account.Common;
 
-namespace Aparta.Authentication.Application.UseCases.Account.GetAccount;
+namespace Aparta.Authentication.UseCases.UseCases.Account.GetAccount;
 
 public class GetAccount : IGetAccount
 {

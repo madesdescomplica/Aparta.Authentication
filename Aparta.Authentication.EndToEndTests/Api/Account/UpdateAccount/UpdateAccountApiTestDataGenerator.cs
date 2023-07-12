@@ -1,10 +1,10 @@
-﻿namespace Aparta.Authentication.EndToEndTests.Api.Account.CreateAccount;
+﻿namespace Aparta.Authentication.EndToEndTests.Api.Account.UpdateAccount;
 
-public class CreateAccountApiTestDataGenerator
+public class UpdateAccountApiTestDataGenerator
 {
     public static IEnumerable<object[]> GetInvalidInputs(int times = 20)
     {
-        var fixture = new CreateAccountApiTestFixture();
+        var fixture = new UpdateAccountApiTestFixture();
         var invalidInputsList = new List<object[]>();
         var totalInvalidCases = 10;
 
@@ -70,7 +70,7 @@ public class CreateAccountApiTestDataGenerator
                     break;
                 case 7:
                     var inputBankNameLong = fixture.GetInput();
-                    inputBankNameLong.BankName = 
+                    inputBankNameLong.BankName =
                         fixture.GetInvalidInputTooLongBankName();
                     invalidInputsList.Add(new object[] {
                         inputBankNameLong,
@@ -90,72 +90,6 @@ public class CreateAccountApiTestDataGenerator
                     inputAccountNumberEmpty.AccountNumber = string.Empty;
                     invalidInputsList.Add(new object[] {
                         inputAccountNumberEmpty,
-                        "AccountNumber should not be empty or null"
-                    });
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        return invalidInputsList;
-    }
-    
-    public static IEnumerable<object[]> GetInvalidInputsNull(int times = 12)
-    {
-        var fixture = new CreateAccountApiTestFixture();
-        var invalidInputsList = new List<object[]>();
-        var totalInvalidCases = 6;
-
-        for (int index = 0; index < times; index++)
-        {
-            switch (index % totalInvalidCases)
-            {
-                case 0:
-                    var inputNameNull = fixture.GetInput();
-                    inputNameNull.Name = null!;
-                    invalidInputsList.Add(new object[] {
-                        inputNameNull,
-                        "Name should not be empty or null"
-                    });
-                    break;
-                case 1:
-                    var inputAddressNull = fixture.GetInput();
-                    inputAddressNull.Address = null!;
-                    invalidInputsList.Add(new object[] {
-                        inputAddressNull,
-                        "Address should not be empty or null"
-                    });
-                    break;
-                case 2:
-                    var inputPhoneNull = fixture.GetInput();
-                    inputPhoneNull.Phone = null!;
-                    invalidInputsList.Add(new object[] {
-                        inputPhoneNull,
-                        "Phone should not be empty or null"
-                    });
-                    break;
-                case 3:
-                    var inputBankNameNull = fixture.GetInput();
-                    inputBankNameNull.BankName = null!;
-                    invalidInputsList.Add(new object[] {
-                        inputBankNameNull,
-                        "BankName should not be empty or null"
-                    });
-                    break;
-                case 4:
-                    var inputAgencyNumberNull = fixture.GetInput();
-                    inputAgencyNumberNull.AgencyNumber = null!;
-                    invalidInputsList.Add(new object[] {
-                        inputAgencyNumberNull,
-                        "AgencyNumber should not be empty or null"
-                    });
-                    break;
-                case 5:
-                    var inputAccountNumberNull = fixture.GetInput();
-                    inputAccountNumberNull.AccountNumber = null!;
-                    invalidInputsList.Add(new object[] {
-                        inputAccountNumberNull,
                         "AccountNumber should not be empty or null"
                     });
                     break;

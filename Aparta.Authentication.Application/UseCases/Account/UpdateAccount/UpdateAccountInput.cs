@@ -1,9 +1,9 @@
 ﻿using Aparta.Authentication.Domain.Enum;
-using Aparta.Authentication.Application.UseCases.Account.Common;
+using Aparta.Authentication.UseCases.UseCases.Account.Common;
 
 using MediatR;
 
-namespace Aparta.Authentication.Application.UseCases.Account.UpdateAccount;
+namespace Aparta.Authentication.UseCases.UseCases.Account.UpdateAccount;
 
 public class UpdateAccountInput : IRequest<AccountModelOutput>
 {

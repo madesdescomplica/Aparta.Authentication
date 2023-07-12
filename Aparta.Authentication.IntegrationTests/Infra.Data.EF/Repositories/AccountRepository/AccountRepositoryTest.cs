@@ -1,4 +1,4 @@
-﻿using Aparta.Authentication.Application.Exceptions;
+﻿using Aparta.Authentication.UseCases.Exceptions;
 
 using Repository = Aparta.Authentication.Infra.Data.EF.Repositories;
 

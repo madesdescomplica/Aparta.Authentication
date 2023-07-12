@@ -1,4 +1,4 @@
-﻿using Aparta.Authentication.Application.UseCases.Account.Common;
+﻿using Aparta.Authentication.UseCases.UseCases.Account.Common;
 using Aparta.Authentication.API.ApiModels.Response;
 
 using FluentAssertions;

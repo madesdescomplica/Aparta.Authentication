@@ -1,4 +1,4 @@
-﻿using Aparta.Authentication.Application.UseCases.Account.UpdateAccount;
+﻿using Aparta.Authentication.API.ApiModels.Account;
 using Aparta.Authentication.EndToEndTests.Api.Account.Common;
 
 using Xunit;
@@ -14,11 +14,10 @@ public class UpdateAccountApiTestFixtureCollection
 public class UpdateAccountApiTestFixture
     : AccountBaseFixture
 {
-    public UpdateAccountInput GetInput()
+    public UpdateAccountApiInput GetInput()
     {
         var clientType = GetRandomClientType();
         return new(
-            Guid.NewGuid(),
             clientType,
             GetRandomDocumentNumber(clientType),
             GetValidName(),

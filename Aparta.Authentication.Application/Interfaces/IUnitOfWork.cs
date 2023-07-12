@@ -1,4 +1,4 @@
-﻿namespace Aparta.Authentication.Application.Interfaces;
+﻿namespace Aparta.Authentication.UseCases.Interfaces;
 
 public interface IUnitOfWork
 {

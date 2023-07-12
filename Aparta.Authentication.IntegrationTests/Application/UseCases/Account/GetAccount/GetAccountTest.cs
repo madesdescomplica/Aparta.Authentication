@@ -1,5 +1,5 @@
-﻿using Aparta.Authentication.Application.Exceptions;
-using UseCase = Aparta.Authentication.Application.UseCases.Account.GetAccount;
+﻿using Aparta.Authentication.UseCases.Exceptions;
+using UseCase = Aparta.Authentication.UseCases.UseCases.Account.GetAccount;
 
 using Aparta.Authentication.Infra.Data.EF.Repositories;
 

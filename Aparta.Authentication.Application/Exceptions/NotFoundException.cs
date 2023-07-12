@@ -1,4 +1,4 @@
-﻿namespace Aparta.Authentication.Application.Exceptions;
+﻿namespace Aparta.Authentication.UseCases.Exceptions;
 
 public class NotFoundException : ApplicationException
 {

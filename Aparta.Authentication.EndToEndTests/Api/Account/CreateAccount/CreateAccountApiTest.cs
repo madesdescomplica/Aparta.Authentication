@@ -1,5 +1,5 @@
-﻿using Aparta.Authentication.Application.UseCases.Account.Common;
-using Aparta.Authentication.Application.UseCases.Account.CreateAccount;
+﻿using Aparta.Authentication.UseCases.UseCases.Account.Common;
+using Aparta.Authentication.UseCases.UseCases.Account.CreateAccount;
 
 using Aparta.Authentication.API.ApiModels.Response;
 

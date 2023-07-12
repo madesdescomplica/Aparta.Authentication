@@ -115,4 +115,34 @@ public class AccountBaseFixture
             .Range(1, length)
             .Select(_ => GetValidAccount(GetRandomClientType()))
             .ToList();
+
+    public string GetInvalidInputShortName() 
+        => Faker.Person.FirstName[..2];
+
+    public string GetInvalidInputTooLongName()
+    {
+        var tooLongNameForCategory = Faker.Person.FullName;
+        while (tooLongNameForCategory.Length <= 255)
+            tooLongNameForCategory = 
+                $"{tooLongNameForCategory} {Faker.Person.FullName}";
+        return tooLongNameForCategory;
+    }
+
+    public string GetInvalidInputTooLongAddress()
+    {
+        var tooLongAddressForAccount = Faker.Person.Address.Street;
+        while (tooLongAddressForAccount.Length <= 10000)
+            tooLongAddressForAccount =
+                $"{tooLongAddressForAccount} {Faker.Person.Address.Street}";
+        return tooLongAddressForAccount;
+    }
+
+    public string GetInvalidInputTooLongBankName()
+    {
+        var tooLongBankNameForAccount = Faker.Company.CompanyName();
+        while (tooLongBankNameForAccount.Length <= 255)
+            tooLongBankNameForAccount = 
+                $"{tooLongBankNameForAccount} {Faker.Company.CompanyName()}";
+        return tooLongBankNameForAccount;
+    }
 }

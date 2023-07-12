@@ -1,7 +1,7 @@
 ﻿using Aparta.Authentication.Domain.Exceptions;
 
-using ApplicationUseCases = Aparta.Authentication.Application.UseCases.Account.CreateAccount;
-using Aparta.Authentication.Application.UseCases.Account.CreateAccount;
+using ApplicationUseCases = Aparta.Authentication.UseCases.UseCases.Account.CreateAccount;
+using Aparta.Authentication.UseCases.UseCases.Account.CreateAccount;
 
 using Aparta.Authentication.Infra.Data.EF;
 using Aparta.Authentication.Infra.Data.EF.Repositories;

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Aparta.Authentication.Application.UseCases.Account.DeleteAccount;
+namespace Aparta.Authentication.UseCases.UseCases.Account.DeleteAccount;
 
 public class DeleteAccountInput : IRequest
 {

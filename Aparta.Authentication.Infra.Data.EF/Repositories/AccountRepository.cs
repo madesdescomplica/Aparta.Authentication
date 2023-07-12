@@ -1,7 +1,7 @@
 ﻿using Aparta.Authentication.Domain.Entity;
 using Aparta.Authentication.Domain.Repository;
 
-using Aparta.Authentication.Application.Exceptions;
+using Aparta.Authentication.UseCases.Exceptions;
 
 using Microsoft.EntityFrameworkCore;
 

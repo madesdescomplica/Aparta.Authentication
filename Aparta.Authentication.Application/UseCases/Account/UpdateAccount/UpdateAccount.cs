@@ -1,9 +1,9 @@
 ﻿using Aparta.Authentication.Domain.Repository;
 
-using Aparta.Authentication.Application.Interfaces;
-using Aparta.Authentication.Application.UseCases.Account.Common;
+using Aparta.Authentication.UseCases.Interfaces;
+using Aparta.Authentication.UseCases.UseCases.Account.Common;
 
-namespace Aparta.Authentication.Application.UseCases.Account.UpdateAccount;
+namespace Aparta.Authentication.UseCases.UseCases.Account.UpdateAccount;
 
 public class UpdateAccount : IUpdateAccount
 {

@@ -1,8 +1,8 @@
 ﻿using DomainEntity = Aparta.Authentication.Domain.Entity;
 
-using Aparta.Authentication.Application.Exceptions;
-using ApplicationUseCase = Aparta.Authentication.Application.UseCases.Account.UpdateAccount;
-using Aparta.Authentication.Application.UseCases.Account.UpdateAccount;
+using Aparta.Authentication.UseCases.Exceptions;
+using ApplicationUseCase = Aparta.Authentication.UseCases.UseCases.Account.UpdateAccount;
+using Aparta.Authentication.UseCases.UseCases.Account.UpdateAccount;
 
 using Aparta.Authentication.Infra.Data.EF;
 using Aparta.Authentication.Infra.Data.EF.Repositories;

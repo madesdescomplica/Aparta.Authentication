@@ -1,4 +1,4 @@
-﻿using Aparta.Authentication.Application.UseCases.Account.UpdateAccount;
+﻿using Aparta.Authentication.UseCases.UseCases.Account.UpdateAccount;
 
 using Aparta.Authentication.IntegrationTests.Application.Common;
 

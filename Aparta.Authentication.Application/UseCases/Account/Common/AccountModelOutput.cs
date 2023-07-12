@@ -1,6 +1,6 @@
 ﻿using Aparta.Authentication.Domain.Enum;
 
-namespace Aparta.Authentication.Application.UseCases.Account.Common;
+namespace Aparta.Authentication.UseCases.UseCases.Account.Common;
 
 public class AccountModelOutput
 {

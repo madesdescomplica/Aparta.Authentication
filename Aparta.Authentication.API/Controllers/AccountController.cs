@@ -1,8 +1,8 @@
-﻿using Aparta.Authentication.Application.UseCases.Account.Common;
-using Aparta.Authentication.Application.UseCases.Account.CreateAccount;
-using Aparta.Authentication.Application.UseCases.Account.DeleteAccount;
-using Aparta.Authentication.Application.UseCases.Account.GetAccount;
-using Aparta.Authentication.Application.UseCases.Account.UpdateAccount;
+﻿using Aparta.Authentication.UseCases.UseCases.Account.Common;
+using Aparta.Authentication.UseCases.UseCases.Account.CreateAccount;
+using Aparta.Authentication.UseCases.UseCases.Account.DeleteAccount;
+using Aparta.Authentication.UseCases.UseCases.Account.GetAccount;
+using Aparta.Authentication.UseCases.UseCases.Account.UpdateAccount;
 
 using Aparta.Authentication.API.ApiModels.Account;
 using Aparta.Authentication.API.ApiModels.Response;

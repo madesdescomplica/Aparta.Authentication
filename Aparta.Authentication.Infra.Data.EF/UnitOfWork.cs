@@ -1,4 +1,4 @@
-﻿using Aparta.Authentication.Application.Interfaces;
+﻿using Aparta.Authentication.UseCases.Interfaces;
 
 namespace Aparta.Authentication.Infra.Data.EF;
 

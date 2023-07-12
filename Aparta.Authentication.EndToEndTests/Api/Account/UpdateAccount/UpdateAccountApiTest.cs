@@ -1,4 +1,4 @@
-﻿using Aparta.Authentication.Application.UseCases.Account.Common;
+﻿using Aparta.Authentication.UseCases.UseCases.Account.Common;
 using Aparta.Authentication.API.ApiModels.Response;
 
 using FluentAssertions;
@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using System.Net;
 using Xunit;
 using Microsoft.AspNetCore.Mvc;
+using Aparta.Authentication.API.ApiModels.Account;
 
 namespace Aparta.Authentication.EndToEndTests.Api.Account.UpdateAccount;
 
@@ -89,5 +90,37 @@ public class UpdateAccountApiTest
         output.Type.Should().Be("NotFound");
         output.Status.Should().Be((int)StatusCodes.Status404NotFound);
         output.Detail.Should().Be($"Account '{randomGuid}' not found.");
+    }
+
+    [Theory(DisplayName = nameof(Should_Throw_An_Error_422_When_Cant_Instantiate_Aggregate))]
+    [Trait("EndToEnd/API", "Account/Update - Endpoints")]
+    [MemberData(
+        nameof(UpdateAccountApiTestDataGenerator.GetInvalidInputs),
+        parameters: 20,
+        MemberType = typeof(UpdateAccountApiTestDataGenerator)
+    )]
+    public async void Should_Throw_An_Error_422_When_Cant_Instantiate_Aggregate(
+        UpdateAccountApiInput input,
+        string expectedDetail
+    )
+    {
+        var exampleAccountsList = _fixture.GetExampleAccountsList(20);
+        await _fixture.Persistence.InserList(exampleAccountsList);
+        var exampleAccount = exampleAccountsList[10];
+
+        var (response, output) = await _fixture
+            .ApiClient
+            .Put<ProblemDetails>(
+                $"/account/{exampleAccount.Id}",
+                input
+            );
+
+        response.Should().NotBeNull();
+        response!.StatusCode.Should().Be((HttpStatusCode)StatusCodes.Status422UnprocessableEntity);
+        output.Should().NotBeNull();
+        output!.Title.Should().Be("One or more validation errors occurred");
+        output.Type.Should().Be("UnprocessableEntity");
+        output.Status.Should().Be(StatusCodes.Status422UnprocessableEntity);
+        output.Detail.Should().Be(expectedDetail);
     }
 }

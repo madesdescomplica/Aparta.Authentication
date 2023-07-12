@@ -1,12 +1,13 @@
 ﻿using Aparta.Authentication.UseCases.UseCases.Account.Common;
+
+using Aparta.Authentication.API.ApiModels.Account;
 using Aparta.Authentication.API.ApiModels.Response;
 
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using Xunit;
-using Microsoft.AspNetCore.Mvc;
-using Aparta.Authentication.API.ApiModels.Account;
 
 namespace Aparta.Authentication.EndToEndTests.Api.Account.UpdateAccount;
 
@@ -21,7 +22,7 @@ public class UpdateAccountApiTest
     // It's 10 categories, which generates 10! combinations or (3,628,800 combinations),
     // which is unfeasible to test all of them. So, I will perform a test to update all
     // at once, then update one at a time, followed by a test with 2 categories,
-    // then 3, and so on, up to 12 random categories.
+    // then 3, and so on, up to 9 random categories.
 
     [Fact(DisplayName = nameof(Should_UpdateAccount))]
     [Trait("EndToEnd/API", "Account/Update - Endpoints")]
@@ -1028,6 +1029,67 @@ public class UpdateAccountApiTest
         dbAccount.DocumentNumber.Should().Be(input.DocumentNumber);
         dbAccount.Name.Should().Be(input.Name);
         dbAccount.Address.Should().Be(exampleAccount.Address);
+        dbAccount.Phone.Should().Be(input.Phone);
+        dbAccount.BankName.Should().Be(input.BankName);
+        dbAccount.AgencyNumber.Should().Be(input.AgencyNumber);
+        dbAccount.AccountNumber.Should().Be(input.AccountNumber);
+        dbAccount.TaxType.Should().Be(input.TaxType);
+        dbAccount.TaxRate.Should().Be(input.TaxRate);
+        dbAccount.CreatedAt.Should().NotBeSameDateAs(default);
+    }
+
+    [Fact(DisplayName = nameof(Should_UpdateAccount_With_9_Fields))]
+    [Trait("EndToEnd/API", "Account/Update - Endpoints")]
+    public async void Should_UpdateAccount_With_9_Fields()
+    {
+        var exampleAccountsList = _fixture.GetExampleAccountsList(20);
+        await _fixture.Persistence.InserList(exampleAccountsList);
+        var exampleAccount = exampleAccountsList[10];
+        var input = new UpdateAccountApiInput(
+            clientType: exampleAccount.ClientType,
+            documentNumber: _fixture
+                .GetRandomDocumentNumber(exampleAccount.ClientType),
+            name: _fixture.GetValidName(),
+            address: _fixture.GetValidAddress(),
+            phone: _fixture.GetValidPhone(),
+            bankName: _fixture.GetValidBankName(),
+            agencyNumber: _fixture.GetValidAgencyNumber(),
+            accountNumber: _fixture.GetValidAccountNumber(),
+            taxType: _fixture.GetRandomTaxType(),
+            taxRate: _fixture.GetValidTaxRate()
+        );
+
+        var (response, output) = await _fixture
+            .ApiClient
+            .Put<ApiResponse<AccountModelOutput>>(
+                $"/account/{exampleAccount.Id}",
+                input
+            );
+        var dbAccount = await _fixture
+            .Persistence.GetById(exampleAccount.Id);
+
+        response.Should().NotBeNull();
+        response!.StatusCode.Should().Be((HttpStatusCode)StatusCodes.Status200OK);
+        output.Should().NotBeNull();
+        output!.Data.Id.Should().Be(exampleAccount.Id);
+        output.Data.ClientType.Should().Be(exampleAccount.ClientType);
+        output.Data.DocumentNumber.Should().Be(input.DocumentNumber);
+        output.Data.Name.Should().Be(input.Name);
+        output.Data.Address.Should().Be(input.Address);
+        output.Data.Phone.Should().Be(input.Phone);
+        output.Data.BankName.Should().Be(input.BankName);
+        output.Data.AgencyNumber.Should().Be(input.AgencyNumber);
+        output.Data.AccountNumber.Should().Be(input.AccountNumber);
+        output.Data.TaxType.Should().Be(input.TaxType);
+        output.Data.TaxRate.Should().Be(input.TaxRate);
+        output.Data.CreatedAt.Should().NotBeSameDateAs(default);
+
+        dbAccount.Should().NotBeNull();
+        dbAccount!.Id.Should().NotBeEmpty();
+        dbAccount.ClientType.Should().Be(exampleAccount.ClientType);
+        dbAccount.DocumentNumber.Should().Be(input.DocumentNumber);
+        dbAccount.Name.Should().Be(input.Name);
+        dbAccount.Address.Should().Be(input.Address);
         dbAccount.Phone.Should().Be(input.Phone);
         dbAccount.BankName.Should().Be(input.BankName);
         dbAccount.AgencyNumber.Should().Be(input.AgencyNumber);

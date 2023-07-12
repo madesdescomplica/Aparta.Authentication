@@ -12,7 +12,7 @@ public static class ConnectionsConfiguration
     {
         services.AddDbContext<ApartaAuthenticationDbContext>(
             options => options.UseInMemoryDatabase(
-                "InMemory-DSV-Database"
+                "InMemoryDatabase"
             )
         );
 

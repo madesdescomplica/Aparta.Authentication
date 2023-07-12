@@ -1,9 +1,11 @@
-﻿using Aparta.Authentication.API.ApiModels.Response;
-using Aparta.Authentication.Application.UseCases.Account.Common;
+﻿using Aparta.Authentication.Application.UseCases.Account.Common;
+using Aparta.Authentication.API.ApiModels.Response;
+
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using System.Net;
 using Xunit;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Aparta.Authentication.EndToEndTests.Api.Account.UpdateAccount;
 
@@ -62,5 +64,30 @@ public class UpdateAccountApiTest
         dbAccount.TaxType.Should().Be(input.TaxType);
         dbAccount.TaxRate.Should().Be(input.TaxRate);
         dbAccount.CreatedAt.Should().NotBeSameDateAs(default);
+    }
+
+    [Fact(DisplayName = nameof(Should_Throw_An_Error_404_When_Not_Found_An_Account_To_Update))]
+    [Trait("EndToEnd/API", "Account/Update - Endpoints")]
+    public async void Should_Throw_An_Error_404_When_Not_Found_An_Account_To_Update()
+    {
+        var exampleAccountsList = _fixture.GetExampleAccountsList(20);
+        await _fixture.Persistence.InserList(exampleAccountsList);
+        var randomGuid = Guid.NewGuid();
+        var input = _fixture.GetInput();
+
+        var (response, output) = await _fixture
+            .ApiClient
+            .Put<ProblemDetails>(
+                $"/account/{randomGuid}",
+                input
+            );
+
+        response.Should().NotBeNull();
+        response!.StatusCode.Should().Be((HttpStatusCode)StatusCodes.Status404NotFound);
+        output.Should().NotBeNull();
+        output!.Title.Should().Be("Not Found");
+        output.Type.Should().Be("NotFound");
+        output.Status.Should().Be((int)StatusCodes.Status404NotFound);
+        output.Detail.Should().Be($"Account '{randomGuid}' not found.");
     }
 }

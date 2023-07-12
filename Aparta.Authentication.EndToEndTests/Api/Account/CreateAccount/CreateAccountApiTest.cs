@@ -89,7 +89,7 @@ public class CreateAccountApiTest
         output.Should().NotBeNull();
         output!.Title.Should().Be("One or more validation errors occurred.");
         output.Type.Should().Be("https://tools.ietf.org/html/rfc7231#section-6.5.1");
-        output.Status.Should().Be((int)StatusCodes.Status400BadRequest);
+        output.Status.Should().Be(StatusCodes.Status400BadRequest);
         (expectedDetail != null && output.Detail == null).Should().BeTrue();
     }
 
@@ -116,7 +116,7 @@ public class CreateAccountApiTest
         output.Should().NotBeNull();
         output!.Title.Should().Be("One or more validation errors occurred");
         output.Type.Should().Be("UnprocessableEntity");
-        output.Status.Should().Be((int)StatusCodes.Status422UnprocessableEntity);
+        output.Status.Should().Be(StatusCodes.Status422UnprocessableEntity);
         output.Detail.Should().Be(expectedDetail);
     }
 }

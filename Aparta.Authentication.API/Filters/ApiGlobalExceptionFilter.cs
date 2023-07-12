@@ -29,20 +29,12 @@ public class ApiGlobalExceptionFilter : IExceptionFilter
             details.Detail = exception!.Message;
         }
 
-        else if (exception is EntityValidationException)
+        else
         {
             details.Title = "One or more validation errors occurred";
             details.Status = StatusCodes.Status422UnprocessableEntity;
             details.Type = "UnprocessableEntity";
             details.Detail = exception!.Message;
-        }
-
-        else
-        {
-            details.Title = "An unexpected error occurred";
-            details.Status = StatusCodes.Status422UnprocessableEntity;
-            details.Type = "UnexpectedError";
-            details.Detail = exception.Message;
         }
 
         context.HttpContext.Response.StatusCode = (int)details.Status;

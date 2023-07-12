@@ -5,6 +5,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using System.Net;
 using Xunit;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Aparta.Authentication.EndToEndTests.Api.Account.GetAccount;
 
@@ -45,5 +46,28 @@ public class GetAccountApiTest
         output.Data.TaxType.Should().Be(exampleAccount.TaxType);
         output.Data.TaxRate.Should().Be(exampleAccount.TaxRate);
         output.Data.CreatedAt.Should().NotBeSameDateAs(default);
+    }
+
+    [Fact(DisplayName = nameof(Should_Throw_An_Error_404_When_Not_Found))]
+    [Trait("EndToEnd/API", "Account/Get - Endpoints")]
+    public async Task Should_Throw_An_Error_404_When_Not_Found()
+    {
+        var exampleAccountsList = _fixture.GetExampleAccountsList(20);
+        await _fixture.Persistence.InserList(exampleAccountsList);
+        var randomGuid = Guid.NewGuid();
+
+        var (response, output) = await _fixture
+            .ApiClient
+            .Get<ProblemDetails>(
+                $"/account/{randomGuid}"
+            );
+
+        response.Should().NotBeNull();
+        response!.StatusCode.Should().Be((HttpStatusCode)StatusCodes.Status404NotFound);
+        output.Should().NotBeNull();
+        output!.Status.Should().Be((int)StatusCodes.Status404NotFound);
+        output.Type.Should().Be("NotFound");
+        output.Title.Should().Be("Not Found");
+        output.Detail.Should().Be($"Account '{randomGuid}' not found.");
     }
 }

@@ -76,6 +76,15 @@ public class ApiClient
         return (response, output);
     }
 
+    public async Task<(HttpResponseMessage?, TOutput?)> Delete<TOutput>(
+        string route
+    ) where TOutput : class
+    {
+        var response = await _httpClient.DeleteAsync(route);
+        var output = await GetOutput<TOutput>(response);
+        return (response, output);
+    }
+
     private async Task<TOutput?> GetOutput<TOutput>(HttpResponseMessage response)
         where TOutput : class
     {

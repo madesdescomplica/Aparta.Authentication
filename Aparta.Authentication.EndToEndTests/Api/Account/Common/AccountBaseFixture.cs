@@ -1,4 +1,5 @@
 ﻿using Aparta.Authentication.Domain.Enum;
+using DomainEntity = Aparta.Authentication.Domain.Entity;
 
 using Aparta.Authentication.EndToEndTests.Base;
 
@@ -94,4 +95,24 @@ public class AccountBaseFixture
 
     public float GetValidTaxRate()
         => (float)Faker.Random.Double(0, 101);
+
+    public DomainEntity.Account GetValidAccount(ClientType clientType)
+        => new(
+            clientType,
+            GetRandomDocumentNumber(clientType),
+            GetValidName(),
+            GetValidAddress(),
+            GetValidPhone(),
+            GetValidBankName(),
+            GetValidAgencyNumber(),
+            GetValidAccountNumber(),
+            GetRandomTaxType(),
+            GetValidTaxRate()
+        );
+
+    public List<DomainEntity.Account> GetExampleAccountsList(int length = 10)
+        => Enumerable
+            .Range(1, length)
+            .Select(_ => GetValidAccount(GetRandomClientType()))
+            .ToList();
 }

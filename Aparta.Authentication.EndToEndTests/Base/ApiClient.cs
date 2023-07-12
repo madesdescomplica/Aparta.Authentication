@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Microsoft.AspNetCore.WebUtilities;
+using System.Text;
 using System.Text.Json;
 
 namespace Aparta.Authentication.EndToEndTests.Base;
@@ -43,6 +44,17 @@ public class ApiClient
         return (response, output);
     }
 
+    public async Task<(HttpResponseMessage?, TOutput?)> Get<TOutput>(
+        string route,
+        object? queryStringParametersObject = null
+    ) where TOutput : class
+    {
+        var url = PrepareGetRoute(route, queryStringParametersObject);
+        var response = await _httpClient.GetAsync(url);
+        var output = await GetOutput<TOutput>(response);
+        return (response, output);
+    }
+
     private async Task<TOutput?> GetOutput<TOutput>(HttpResponseMessage response)
         where TOutput : class
     {
@@ -54,5 +66,27 @@ public class ApiClient
                 _defaultSerializeOptions
             );
         return output;
+    }
+
+    private string PrepareGetRoute(
+        string route,
+        object? queryStringParametersObject
+    )
+    {
+        if (queryStringParametersObject is null)
+            return route;
+
+        var parametersJson = JsonSerializer.Serialize(
+            queryStringParametersObject,
+            _defaultSerializeOptions
+        );
+        var parametersDictionary = Newtonsoft
+            .Json
+            .JsonConvert
+            .DeserializeObject<Dictionary<string, string>>(
+                parametersJson
+            );
+
+        return QueryHelpers.AddQueryString(route, parametersDictionary!);
     }
 }

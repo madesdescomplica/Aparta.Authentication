@@ -9,8 +9,7 @@ namespace Aparta.Authentication.EndToEndTests.Api.Account.CreateAccount;
 [CollectionDefinition(nameof(CreateAccountApiTestFixture))]
 public class CreateAccountApiTestFixtureCollection
     : ICollectionFixture<CreateAccountApiTestFixture>
-{
-}
+{ }
 
 public class CreateAccountApiTestFixture
     : AccountBaseFixture

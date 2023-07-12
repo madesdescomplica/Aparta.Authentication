@@ -33,7 +33,7 @@ public class AccountController : ControllerBase
         return CreatedAtAction(
             nameof(Create),
             new { output.Id },
-            output
+            new ApiResponse<AccountModelOutput>(output)
         );
     }
 

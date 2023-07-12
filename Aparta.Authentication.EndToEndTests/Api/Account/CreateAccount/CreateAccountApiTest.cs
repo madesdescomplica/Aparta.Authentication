@@ -1,6 +1,8 @@
 ﻿using Aparta.Authentication.Application.UseCases.Account.Common;
 using Aparta.Authentication.Application.UseCases.Account.CreateAccount;
 
+using Aparta.Authentication.API.ApiModels.Response;
+
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,29 +27,29 @@ public class CreateAccountApiTest
 
         var (response, output) = await _fixture
             .ApiClient
-            .Post<AccountModelOutput>(
+            .Post<ApiResponse<AccountModelOutput>>(
                 "/account",
                 input
             );
         var dbAccount = await _fixture
             .Persistence
-            .GetById(output!.Id);
+            .GetById(output!.Data.Id);
 
         response.Should().NotBeNull();
         response!.StatusCode.Should().Be(HttpStatusCode.Created);
         output.Should().NotBeNull();
-        output.Id.Should().NotBeEmpty();
-        output.ClientType.Should().Be(input.ClientType);
-        output.DocumentNumber.Should().Be(input.DocumentNumber);
-        output.Name.Should().Be(input.Name);
-        output.Address.Should().Be(input.Address);
-        output.Phone.Should().Be(input.Phone);
-        output.BankName.Should().Be(input.BankName);
-        output.AgencyNumber.Should().Be(input.AgencyNumber);
-        output.AccountNumber.Should().Be(input.AccountNumber);
-        output.TaxType.Should().Be(input.TaxType);
-        output.TaxRate.Should().Be(input.TaxRate);
-        output.CreatedAt.Should().NotBeSameDateAs(default);
+        output.Data.Id.Should().NotBeEmpty();
+        output.Data.ClientType.Should().Be(input.ClientType);
+        output.Data.DocumentNumber.Should().Be(input.DocumentNumber);
+        output.Data.Name.Should().Be(input.Name);
+        output.Data.Address.Should().Be(input.Address);
+        output.Data.Phone.Should().Be(input.Phone);
+        output.Data.BankName.Should().Be(input.BankName);
+        output.Data.AgencyNumber.Should().Be(input.AgencyNumber);
+        output.Data.AccountNumber.Should().Be(input.AccountNumber);
+        output.Data.TaxType.Should().Be(input.TaxType);
+        output.Data.TaxRate.Should().Be(input.TaxRate);
+        output.Data.CreatedAt.Should().NotBeSameDateAs(default);
 
         dbAccount.Should().NotBeNull();
         dbAccount!.Id.Should().NotBeEmpty();

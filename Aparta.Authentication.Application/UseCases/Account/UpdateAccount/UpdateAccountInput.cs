@@ -1,9 +1,9 @@
 ﻿using Aparta.Authentication.Domain.Enum;
-using Aparta.Authentication.UseCases.UseCases.Account.Common;
+using Aparta.Authentication.UseCases.Account.Common;
 
 using MediatR;
 
-namespace Aparta.Authentication.UseCases.UseCases.Account.UpdateAccount;
+namespace Aparta.Authentication.UseCases.Account.UpdateAccount;
 
 public class UpdateAccountInput : IRequest<AccountModelOutput>
 {
@@ -13,6 +13,7 @@ public class UpdateAccountInput : IRequest<AccountModelOutput>
     public string Name { get; set; }
     public string Address { get; set; }
     public string Phone { get; set; }
+    public string BankCode { get; set; }
     public string BankName { get; set; }
     public string AgencyNumber { get; set; }
     public string AccountNumber { get; set; }
@@ -26,6 +27,7 @@ public class UpdateAccountInput : IRequest<AccountModelOutput>
         string name,
         string address,
         string phone,
+        string bankCode,
         string bankName,
         string agencyNumber,
         string accountNumber,
@@ -39,6 +41,7 @@ public class UpdateAccountInput : IRequest<AccountModelOutput>
         Name = name;
         Address = address;
         Phone = phone;
+        BankCode = bankCode;
         BankName = bankName;
         AgencyNumber = agencyNumber;
         AccountNumber = accountNumber;

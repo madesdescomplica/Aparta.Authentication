@@ -1,9 +1,9 @@
 ﻿using Aparta.Authentication.Domain.Repository;
 
 using Aparta.Authentication.UseCases.Interfaces;
-using Aparta.Authentication.UseCases.UseCases.Account.Common;
+using Aparta.Authentication.UseCases.Account.Common;
 
-namespace Aparta.Authentication.UseCases.UseCases.Account.UpdateAccount;
+namespace Aparta.Authentication.UseCases.Account.UpdateAccount;
 
 public class UpdateAccount : IUpdateAccount
 {
@@ -34,6 +34,7 @@ public class UpdateAccount : IUpdateAccount
             name: request.Name,
             address: request.Address,
             phone: request.Phone,
+            bankCode: request.BankCode,
             bankName: request.BankName,
             agencyNumber: request.AgencyNumber,
             accountNumber: request.AccountNumber,

@@ -1,8 +1,8 @@
 ﻿using DomainEntity = Aparta.Authentication.Domain.Entity;
 
 using Aparta.Authentication.UseCases.Exceptions;
-using ApplicationUseCase = Aparta.Authentication.UseCases.UseCases.Account.UpdateAccount;
-using Aparta.Authentication.UseCases.UseCases.Account.UpdateAccount;
+using ApplicationUseCase = Aparta.Authentication.UseCases.Account.UpdateAccount;
+using Aparta.Authentication.UseCases.Account.UpdateAccount;
 
 using Aparta.Authentication.Infra.Data.EF;
 using Aparta.Authentication.Infra.Data.EF.Repositories;
@@ -29,13 +29,13 @@ public class UpdateAccountTest
         MemberType = typeof(UpdateAccountTestDataGenerator)
     )]
     public async Task Should_UpdateAccount_With_Correct_Values(
-        DomainEntity.Account exampleCategory,
+        DomainEntity.Account exampleAccount,
         UpdateAccountInput input
     )
     {
         var dbContext = _fixture.CreateDbContext();
         await dbContext.AddRangeAsync(_fixture.GetExampleAccountsList());
-        var trackingInfo = await dbContext.AddAsync(exampleCategory);
+        var trackingInfo = await dbContext.AddAsync(exampleAccount);
         dbContext.SaveChanges();
         trackingInfo.State = EntityState.Detached;
         var repository = new AccountRepository(dbContext);
@@ -57,6 +57,7 @@ public class UpdateAccountTest
         dbAccount.Name.Should().Be(input.Name);
         dbAccount.Address.Should().Be(input.Address);
         dbAccount.Phone.Should().Be(input.Phone);
+        dbAccount.BankCode.Should().Be(input.BankCode);
         dbAccount.BankName.Should().Be(input.BankName);
         dbAccount.AgencyNumber.Should().Be(input.AgencyNumber);
         dbAccount.AccountNumber.Should().Be(input.AccountNumber);
@@ -71,6 +72,7 @@ public class UpdateAccountTest
         output.Name.Should().Be(input.Name);
         output.Address.Should().Be(input.Address);
         output.Phone.Should().Be(input.Phone);
+        output.BankCode.Should().Be(input.BankCode);
         output.BankName.Should().Be(input.BankName);
         output.AgencyNumber.Should().Be(input.AgencyNumber);
         output.AccountNumber.Should().Be(input.AccountNumber);
@@ -99,6 +101,7 @@ public class UpdateAccountTest
             validInput.Name,
             validInput.Address,
             validInput.Phone,
+            validInput.BankCode,
             validInput.BankName,
             validInput.AgencyNumber,
             validInput.AccountNumber,

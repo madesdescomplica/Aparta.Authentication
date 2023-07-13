@@ -1,7 +1,7 @@
 ﻿using Aparta.Authentication.Domain.Repository;
 
 using Aparta.Authentication.UseCases.Interfaces;
-using Aparta.Authentication.UseCases.UseCases.Account.CreateAccount;
+using Aparta.Authentication.UseCases.Account.CreateAccount;
 
 using Aparta.Authentication.Infra.Data.EF;
 using Aparta.Authentication.Infra.Data.EF.Repositories;

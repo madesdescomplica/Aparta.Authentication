@@ -1,9 +1,9 @@
 ﻿using Aparta.Authentication.Domain.Repository;
 
 using Aparta.Authentication.UseCases.Interfaces;
-using Aparta.Authentication.UseCases.UseCases.Account.Common;
+using Aparta.Authentication.UseCases.Account.Common;
 
-namespace Aparta.Authentication.UseCases.UseCases.Account.CreateAccount;
+namespace Aparta.Authentication.UseCases.Account.CreateAccount;
 
 public class CreateAccount : ICreateAccount
 {
@@ -30,6 +30,7 @@ public class CreateAccount : ICreateAccount
             name: request.Name,
             address: request.Address,
             phone: request.Phone,
+            bankCode: request.BankCode,
             bankName: request.BankName,
             agencyNumber: request.AgencyNumber,
             accountNumber: request.AccountNumber,

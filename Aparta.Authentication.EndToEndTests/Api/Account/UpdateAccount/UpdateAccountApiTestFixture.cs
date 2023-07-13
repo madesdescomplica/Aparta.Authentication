@@ -23,6 +23,7 @@ public class UpdateAccountApiTestFixture
             GetValidName(),
             GetValidAddress(),
             GetValidPhone(),
+            GetValidBankCode(),
             GetValidBankName(),
             GetValidAgencyNumber(),
             GetValidAccountNumber(),

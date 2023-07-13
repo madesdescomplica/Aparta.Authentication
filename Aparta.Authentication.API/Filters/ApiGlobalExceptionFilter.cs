@@ -1,5 +1,4 @@
-﻿using Aparta.Authentication.Domain.Exceptions;
-using Aparta.Authentication.UseCases.Exceptions;
+﻿using Aparta.Authentication.UseCases.Exceptions;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;

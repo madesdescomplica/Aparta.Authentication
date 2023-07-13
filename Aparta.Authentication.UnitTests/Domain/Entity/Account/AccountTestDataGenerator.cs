@@ -74,7 +74,7 @@ public class AccountTestDataGenerator
         {
             var isOdd = i % 2 == 1;
             yield return new object[] {
-                fixture.GetValidCategoryName()[..(isOdd ? 1 : 2)]
+                fixture.GetValidAccountName()[..(isOdd ? 1 : 2)]
             };
         }
     }

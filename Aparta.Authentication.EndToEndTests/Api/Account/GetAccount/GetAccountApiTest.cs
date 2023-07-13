@@ -1,4 +1,4 @@
-﻿using Aparta.Authentication.UseCases.UseCases.Account.Common;
+﻿using Aparta.Authentication.UseCases.Account.Common;
 using Aparta.Authentication.API.ApiModels.Response;
 
 using FluentAssertions;
@@ -40,6 +40,7 @@ public class GetAccountApiTest
         output.Data.Name.Should().Be(exampleAccount.Name);
         output.Data.Address.Should().Be(exampleAccount.Address);
         output.Data.Phone.Should().Be(exampleAccount.Phone);
+        output.Data.BankCode.Should().Be(exampleAccount.BankCode);
         output.Data.BankName.Should().Be(exampleAccount.BankName);
         output.Data.AgencyNumber.Should().Be(exampleAccount.AgencyNumber);
         output.Data.AccountNumber.Should().Be(exampleAccount.AccountNumber);

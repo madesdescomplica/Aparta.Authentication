@@ -29,6 +29,7 @@ public class AccountTest
             validAccount.Name,
             validAccount.Address,
             validAccount.Phone,
+            validAccount.BankCode,
             validAccount.BankName,
             validAccount.AgencyNumber,
             validAccount.AccountNumber,
@@ -43,6 +44,7 @@ public class AccountTest
         account.Name.Should().Be(validAccount.Name);
         account.Address.Should().Be(validAccount.Address);
         account.Phone.Should().Be(validAccount.Phone);
+        account.BankCode.Should().Be(validAccount.BankCode);
         account.BankName.Should().Be(validAccount.BankName);
         account.AgencyNumber.Should().Be(validAccount.AgencyNumber);
         account.AccountNumber.Should().Be(validAccount.AccountNumber);
@@ -67,6 +69,7 @@ public class AccountTest
             validAccount.Name,
             validAccount.Address,
             validAccount.Phone,
+            validAccount.BankCode,
             validAccount.BankName,
             validAccount.AgencyNumber,
             validAccount.AccountNumber,
@@ -99,6 +102,7 @@ public class AccountTest
             validAccount.Name,
             validAccount.Address,
             validAccount.Phone,
+            validAccount.BankCode,
             validAccount.BankName,
             validAccount.AgencyNumber,
             validAccount.AccountNumber,
@@ -124,6 +128,7 @@ public class AccountTest
             validAccount.Name,
             validAccount.Address,
             validAccount.Phone,
+            validAccount.BankCode,
             validAccount.BankName,
             validAccount.AgencyNumber,
             validAccount.AccountNumber,
@@ -156,6 +161,7 @@ public class AccountTest
             validAccount.Name,
             validAccount.Address,
             validAccount.Phone,
+            validAccount.BankCode,
             validAccount.BankName,
             validAccount.AgencyNumber,
             validAccount.AccountNumber,
@@ -185,6 +191,7 @@ public class AccountTest
             name!,
             validAccount.Address,
             validAccount.Phone,
+            validAccount.BankCode,
             validAccount.BankName,
             validAccount.AgencyNumber,
             validAccount.AccountNumber,
@@ -216,6 +223,7 @@ public class AccountTest
             invalidName,
             validAccount.Address,
             validAccount.Phone,
+            validAccount.BankCode,
             validAccount.BankName,
             validAccount.AgencyNumber,
             validAccount.AccountNumber,
@@ -243,6 +251,7 @@ public class AccountTest
             invalidName,
             validAccount.Address,
             validAccount.Phone,
+            validAccount.BankCode,
             validAccount.BankName,
             validAccount.AgencyNumber,
             validAccount.AccountNumber,
@@ -255,9 +264,12 @@ public class AccountTest
             .WithMessage("Name should have less or equal 255 characters");
     }
 
-    [Fact(DisplayName = nameof(Should_Throw_An_Error_When_Address_Is_Null))]
+    [Theory(DisplayName = nameof(Should_Throw_An_Error_When_Address_Is_Null))]
     [Trait("Domain", "Account - Aggregates")]
-    public void Should_Throw_An_Error_When_Address_Is_Null()
+    [InlineData("")]
+    [InlineData(null)]
+    [InlineData(" ")]
+    public void Should_Throw_An_Error_When_Address_Is_Null(string? address)
     {
         var clientType = _fixture.GetRandomClientType();
         var validAccount = _fixture.GetValidAccount(clientType);
@@ -267,8 +279,9 @@ public class AccountTest
             clientType,
             validAccount.DocumentNumber,
             validAccount.Name,
-            null!,
+            address!,
             validAccount.Phone,
+            validAccount.BankCode,
             validAccount.BankName,
             validAccount.AgencyNumber,
             validAccount.AccountNumber,
@@ -296,6 +309,7 @@ public class AccountTest
             validAccount.Name,
             invalidAddress,
             validAccount.Phone,
+            validAccount.BankCode,
             validAccount.BankName,
             validAccount.AgencyNumber,
             validAccount.AccountNumber,
@@ -308,9 +322,12 @@ public class AccountTest
             .WithMessage("Address should have less or equal 10000 characters");
     }
 
-    [Fact(DisplayName = nameof(Should_Throw_An_Error_When_Phone_Is_Null))]
+    [Theory(DisplayName = nameof(Should_Throw_An_Error_When_Phone_Is_Null))]
     [Trait("Domain", "Account - Aggregates")]
-    public void Should_Throw_An_Error_When_Phone_Is_Null()
+    [InlineData("")]
+    [InlineData(null)]
+    [InlineData(" ")]
+    public void Should_Throw_An_Error_When_Phone_Is_Null(string? phone)
     {
         var clientType = _fixture.GetRandomClientType();
         var validAccount = _fixture.GetValidAccount(clientType);
@@ -321,7 +338,8 @@ public class AccountTest
             validAccount.DocumentNumber,
             validAccount.Name,
             validAccount.Address,
-            null!,
+            phone!,
+            validAccount.BankCode,
             validAccount.BankName,
             validAccount.AgencyNumber,
             validAccount.AccountNumber,
@@ -334,9 +352,12 @@ public class AccountTest
             .WithMessage("Phone should not be empty or null");
     }
 
-    [Fact(DisplayName = nameof(Should_Throw_An_Error_When_BankName_Is_Null))]
+    [Theory(DisplayName = nameof(Should_Throw_An_Error_When_BankCode_Is_Null))]
     [Trait("Domain", "Account - Aggregates")]
-    public void Should_Throw_An_Error_When_BankName_Is_Null()
+    [InlineData("")]
+    [InlineData(null)]
+    [InlineData(" ")]
+    public void Should_Throw_An_Error_When_BankCode_Is_Null(string? bankCode)
     {
         var clientType = _fixture.GetRandomClientType();
         var validAccount = _fixture.GetValidAccount(clientType);
@@ -348,7 +369,38 @@ public class AccountTest
             validAccount.Name,
             validAccount.Address,
             validAccount.Phone,
-            null!,
+            bankCode!,
+            validAccount.BankName,
+            validAccount.AgencyNumber,
+            validAccount.AccountNumber,
+            validAccount.TaxType,
+            validAccount.TaxRate
+        );
+
+        action.Should()
+            .Throw<EntityValidationException>()
+            .WithMessage("BankCode should not be empty or null");
+    }
+
+    [Theory(DisplayName = nameof(Should_Throw_An_Error_When_BankName_Is_Null))]
+    [Trait("Domain", "Account - Aggregates")]
+    [InlineData("")]
+    [InlineData(null)]
+    [InlineData(" ")]
+    public void Should_Throw_An_Error_When_BankName_Is_Null(string? bankName)
+    {
+        var clientType = _fixture.GetRandomClientType();
+        var validAccount = _fixture.GetValidAccount(clientType);
+
+        Action action = ()
+            => new DomainEntity.Account(
+            clientType,
+            validAccount.DocumentNumber,
+            validAccount.Name,
+            validAccount.Address,
+            validAccount.Phone,
+            validAccount.BankCode,
+            bankName!,
             validAccount.AgencyNumber,
             validAccount.AccountNumber,
             validAccount.TaxType,
@@ -364,7 +416,7 @@ public class AccountTest
     [Trait("Domain", "Account - Aggregates")]
     public void Should_Throw_An_Error_When_BankName_Is_Greater_Than_255_Characters()
     {
-        var invalidBankName = new string('a', 256);
+        var invalidBankName = _fixture.GetInvalidTooLongName();
         var clientType = _fixture.GetRandomClientType();
         var validAccount = _fixture.GetValidAccount(clientType);
 
@@ -375,6 +427,7 @@ public class AccountTest
             validAccount.Name,
             validAccount.Address,
             validAccount.Phone,
+            validAccount.BankCode,
             invalidBankName,
             validAccount.AgencyNumber,
             validAccount.AccountNumber,
@@ -387,9 +440,12 @@ public class AccountTest
             .WithMessage("BankName should have less or equal 255 characters");
     }
 
-    [Fact(DisplayName = nameof(Should_Throw_An_Error_When_AgencyNumber_Is_Null))]
+    [Theory(DisplayName = nameof(Should_Throw_An_Error_When_AgencyNumber_Is_Null))]
     [Trait("Domain", "Account - Aggregates")]
-    public void Should_Throw_An_Error_When_AgencyNumber_Is_Null()
+    [InlineData("")]
+    [InlineData(null)]
+    [InlineData(" ")]
+    public void Should_Throw_An_Error_When_AgencyNumber_Is_Null(string? agencyNumber)
     {
         var clientType = _fixture.GetRandomClientType();
         var validAccount = _fixture.GetValidAccount(clientType);
@@ -401,8 +457,9 @@ public class AccountTest
             validAccount.Name,
             validAccount.Address,
             validAccount.Phone,
+            validAccount.BankCode,
             validAccount.BankName,
-            null!,
+            agencyNumber!,
             validAccount.AccountNumber,
             validAccount.TaxType,
             validAccount.TaxRate
@@ -413,9 +470,12 @@ public class AccountTest
             .WithMessage("AgencyNumber should not be empty or null");
     }
 
-    [Fact(DisplayName = nameof(Should_Throw_An_Error_When_AccountNumber_Is_Null))]
+    [Theory(DisplayName = nameof(Should_Throw_An_Error_When_AccountNumber_Is_Null))]
     [Trait("Domain", "Account - Aggregates")]
-    public void Should_Throw_An_Error_When_AccountNumber_Is_Null()
+    [InlineData("")]
+    [InlineData(null)]
+    [InlineData(" ")]
+    public void Should_Throw_An_Error_When_AccountNumber_Is_Null(string? accountNumber)
     {
         var clientType = _fixture.GetRandomClientType();
         var validAccount = _fixture.GetValidAccount(clientType);
@@ -427,9 +487,10 @@ public class AccountTest
             validAccount.Name,
             validAccount.Address,
             validAccount.Phone,
+            validAccount.BankCode,
             validAccount.BankName,
             validAccount.AgencyNumber,
-            null!,
+            accountNumber!,
             validAccount.TaxType,
             validAccount.TaxRate
         );

@@ -38,6 +38,7 @@ public class AccountRepositoryTest
         dbAccount.Name.Should().Be(validAccount.Name);
         dbAccount.Address.Should().Be(validAccount.Address);
         dbAccount.Phone.Should().Be(validAccount.Phone);
+        dbAccount.BankCode.Should().Be(validAccount.BankCode);
         dbAccount.BankName.Should().Be(validAccount.BankName);
         dbAccount.AgencyNumber.Should().Be(validAccount.AgencyNumber);
         dbAccount.AccountNumber.Should().Be(validAccount.AccountNumber);
@@ -72,6 +73,7 @@ public class AccountRepositoryTest
         dbAccount.Name.Should().Be(validAccount.Name);
         dbAccount.Address.Should().Be(validAccount.Address);
         dbAccount.Phone.Should().Be(validAccount.Phone);
+        dbAccount.BankCode.Should().Be(validAccount.BankCode);
         dbAccount.BankName.Should().Be(validAccount.BankName);
         dbAccount.AgencyNumber.Should().Be(validAccount.AgencyNumber);
         dbAccount.AccountNumber.Should().Be(validAccount.AccountNumber);
@@ -120,6 +122,7 @@ public class AccountRepositoryTest
             validAccount.Name,
             validAccount.Address,
             validAccount.Phone,
+            validAccount.BankCode,
             validAccount.BankName,
             validAccount.AgencyNumber,
             validAccount.AccountNumber,
@@ -145,6 +148,7 @@ public class AccountRepositoryTest
         dbAccount.Name.Should().Be(validAccount.Name);
         dbAccount.Address.Should().Be(validAccount.Address);
         dbAccount.Phone.Should().Be(validAccount.Phone);
+        dbAccount.BankCode.Should().Be(validAccount.BankCode);
         dbAccount.BankName.Should().Be(validAccount.BankName);
         dbAccount.AgencyNumber.Should().Be(validAccount.AgencyNumber);
         dbAccount.AccountNumber.Should().Be(validAccount.AccountNumber);

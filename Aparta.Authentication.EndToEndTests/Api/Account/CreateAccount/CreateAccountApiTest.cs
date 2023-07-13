@@ -1,5 +1,5 @@
-﻿using Aparta.Authentication.UseCases.UseCases.Account.Common;
-using Aparta.Authentication.UseCases.UseCases.Account.CreateAccount;
+﻿using Aparta.Authentication.UseCases.Account.Common;
+using Aparta.Authentication.UseCases.Account.CreateAccount;
 
 using Aparta.Authentication.API.ApiModels.Response;
 
@@ -44,6 +44,7 @@ public class CreateAccountApiTest
         output.Data.Name.Should().Be(input.Name);
         output.Data.Address.Should().Be(input.Address);
         output.Data.Phone.Should().Be(input.Phone);
+        output.Data.BankCode.Should().Be(input.BankCode);
         output.Data.BankName.Should().Be(input.BankName);
         output.Data.AgencyNumber.Should().Be(input.AgencyNumber);
         output.Data.AccountNumber.Should().Be(input.AccountNumber);
@@ -58,6 +59,7 @@ public class CreateAccountApiTest
         dbAccount.Name.Should().Be(input.Name);
         dbAccount.Address.Should().Be(input.Address);
         dbAccount.Phone.Should().Be(input.Phone);
+        dbAccount.BankCode.Should().Be(input.BankCode);
         dbAccount.BankName.Should().Be(input.BankName);
         dbAccount.AgencyNumber.Should().Be(input.AgencyNumber);
         dbAccount.AccountNumber.Should().Be(input.AccountNumber);
@@ -70,7 +72,7 @@ public class CreateAccountApiTest
     [Trait("EndToEnd/API", "Account/Create - Endpoints")]
     [MemberData(
         nameof(CreateAccountApiTestDataGenerator.GetInvalidInputsNull),
-        parameters: 12,
+        parameters: 14,
         MemberType = typeof(CreateAccountApiTestDataGenerator)
     )]
     public async Task Should_Throw_An_Error_400_When_Cant_Instantiate_Aggregate(
@@ -97,7 +99,7 @@ public class CreateAccountApiTest
     [Trait("EndToEnd/API", "Account/Create - Endpoints")]
     [MemberData(
         nameof(CreateAccountApiTestDataGenerator.GetInvalidInputs),
-        parameters: 20,
+        parameters: 22,
         MemberType = typeof(CreateAccountApiTestDataGenerator)
     )]
     public async Task Should_Throw_An_Error_422_When_Cant_Instantiate_Aggregate(

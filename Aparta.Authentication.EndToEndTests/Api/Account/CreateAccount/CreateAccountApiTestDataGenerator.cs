@@ -2,11 +2,11 @@
 
 public class CreateAccountApiTestDataGenerator
 {
-    public static IEnumerable<object[]> GetInvalidInputs(int times = 20)
+    public static IEnumerable<object[]> GetInvalidInputs(int times = 22)
     {
         var fixture = new CreateAccountApiTestFixture();
         var invalidInputsList = new List<object[]>();
-        var totalInvalidCases = 10;
+        var totalInvalidCases = 11;
 
         for (int index = 0; index < times; index++)
         {
@@ -61,6 +61,14 @@ public class CreateAccountApiTestDataGenerator
                     });
                     break;
                 case 6:
+                    var inputBankCodeEmpty = fixture.GetInput();
+                    inputBankCodeEmpty.BankCode = string.Empty;
+                    invalidInputsList.Add(new object[] {
+                        inputBankCodeEmpty,
+                        "BankCode should not be empty or null"
+                    });
+                    break;
+                case 7:
                     var inputBankNameEmpty = fixture.GetInput();
                     inputBankNameEmpty.BankName = string.Empty;
                     invalidInputsList.Add(new object[] {
@@ -68,7 +76,7 @@ public class CreateAccountApiTestDataGenerator
                         "BankName should not be empty or null"
                     });
                     break;
-                case 7:
+                case 8:
                     var inputBankNameLong = fixture.GetInput();
                     inputBankNameLong.BankName = 
                         fixture.GetInvalidInputTooLongBankName();
@@ -77,7 +85,7 @@ public class CreateAccountApiTestDataGenerator
                         "BankName should have less or equal 255 characters"
                     });
                     break;
-                case 8:
+                case 9:
                     var inputAgencyNumberEmpty = fixture.GetInput();
                     inputAgencyNumberEmpty.AgencyNumber = string.Empty;
                     invalidInputsList.Add(new object[] {
@@ -85,7 +93,7 @@ public class CreateAccountApiTestDataGenerator
                         "AgencyNumber should not be empty or null"
                     });
                     break;
-                case 9:
+                case 10:
                     var inputAccountNumberEmpty = fixture.GetInput();
                     inputAccountNumberEmpty.AccountNumber = string.Empty;
                     invalidInputsList.Add(new object[] {
@@ -101,11 +109,11 @@ public class CreateAccountApiTestDataGenerator
         return invalidInputsList;
     }
     
-    public static IEnumerable<object[]> GetInvalidInputsNull(int times = 12)
+    public static IEnumerable<object[]> GetInvalidInputsNull(int times = 14)
     {
         var fixture = new CreateAccountApiTestFixture();
         var invalidInputsList = new List<object[]>();
-        var totalInvalidCases = 6;
+        var totalInvalidCases = 7;
 
         for (int index = 0; index < times; index++)
         {
@@ -136,6 +144,14 @@ public class CreateAccountApiTestDataGenerator
                     });
                     break;
                 case 3:
+                    var inputBankCodeNull = fixture.GetInput();
+                    inputBankCodeNull.BankCode = null!;
+                    invalidInputsList.Add(new object[] {
+                        inputBankCodeNull,
+                        "BankCode should not be empty or null"
+                    });
+                    break;
+                case 4:
                     var inputBankNameNull = fixture.GetInput();
                     inputBankNameNull.BankName = null!;
                     invalidInputsList.Add(new object[] {
@@ -143,7 +159,7 @@ public class CreateAccountApiTestDataGenerator
                         "BankName should not be empty or null"
                     });
                     break;
-                case 4:
+                case 5:
                     var inputAgencyNumberNull = fixture.GetInput();
                     inputAgencyNumberNull.AgencyNumber = null!;
                     invalidInputsList.Add(new object[] {
@@ -151,7 +167,7 @@ public class CreateAccountApiTestDataGenerator
                         "AgencyNumber should not be empty or null"
                     });
                     break;
-                case 5:
+                case 6:
                     var inputAccountNumberNull = fixture.GetInput();
                     inputAccountNumberNull.AccountNumber = null!;
                     invalidInputsList.Add(new object[] {

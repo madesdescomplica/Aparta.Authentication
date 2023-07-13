@@ -1,7 +1,7 @@
 ﻿using Aparta.Authentication.Domain.Exceptions;
 
-using ApplicationUseCases = Aparta.Authentication.UseCases.UseCases.Account.CreateAccount;
-using Aparta.Authentication.UseCases.UseCases.Account.CreateAccount;
+using ApplicationUseCases = Aparta.Authentication.UseCases.Account.CreateAccount;
+using Aparta.Authentication.UseCases.Account.CreateAccount;
 
 using Aparta.Authentication.Infra.Data.EF;
 using Aparta.Authentication.Infra.Data.EF.Repositories;
@@ -48,6 +48,7 @@ public class CreateAccountTest
         dbAccount.Name.Should().Be(input.Name);
         dbAccount.Address.Should().Be(input.Address);
         dbAccount.Phone.Should().Be(input.Phone);
+        dbAccount.BankCode.Should().Be(input.BankCode);
         dbAccount.BankName.Should().Be(input.BankName);
         dbAccount.AgencyNumber.Should().Be(input.AgencyNumber);
         dbAccount.AccountNumber.Should().Be(input.AccountNumber);
@@ -61,6 +62,7 @@ public class CreateAccountTest
         output.Name.Should().Be(input.Name);
         output.Address.Should().Be(input.Address);
         output.Phone.Should().Be(input.Phone);
+        output.BankCode.Should().Be(input.BankCode);
         output.BankName.Should().Be(input.BankName);
         output.AgencyNumber.Should().Be(input.AgencyNumber);
         output.AccountNumber.Should().Be(input.AccountNumber);
@@ -74,7 +76,7 @@ public class CreateAccountTest
     [Trait("Integration/Application", "CreateAccount - UseCases")]
     [MemberData(
         nameof(CreateAccountTestDataGenerator.GetInvalidInputs),
-        parameters: 16,
+        parameters: 36,
         MemberType = typeof(CreateAccountTestDataGenerator)
     )]
     public async void Should_Throw_When_Cant_Instantiate_Account(

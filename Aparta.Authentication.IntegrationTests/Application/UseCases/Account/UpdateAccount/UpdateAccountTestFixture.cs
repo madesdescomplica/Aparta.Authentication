@@ -1,4 +1,4 @@
-﻿using Aparta.Authentication.UseCases.UseCases.Account.UpdateAccount;
+﻿using Aparta.Authentication.UseCases.Account.UpdateAccount;
 
 using Aparta.Authentication.IntegrationTests.Application.Common;
 
@@ -24,6 +24,7 @@ public class UpdateAccountTestFixture
             GetValidName(),
             GetValidAddress(),
             GetValidPhone(),
+            GetValidBankCode(),
             GetValidBankName(),
             GetValidAgencyNumber(),
             GetValidAccountNumber(),

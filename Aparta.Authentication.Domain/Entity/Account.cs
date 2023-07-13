@@ -11,6 +11,7 @@ public class Account : AggregateRoot
     public string Name { get; private set; }
     public string Address { get; private set; }
     public string Phone { get; private set; }
+    public string BankCode { get; private set; }
     public string BankName { get; private set; }
     public string AgencyNumber { get; private set; }
     public string AccountNumber { get; private set; }
@@ -24,6 +25,7 @@ public class Account : AggregateRoot
         string name,
         string address,
         string phone,
+        string bankCode,
         string bankName,
         string agencyNumber,
         string accountNumber,
@@ -36,6 +38,7 @@ public class Account : AggregateRoot
         Name = name;
         Address = address;
         Phone = phone;
+        BankCode = bankCode;
         BankName = bankName;
         AgencyNumber = agencyNumber;
         AccountNumber = accountNumber;
@@ -52,6 +55,7 @@ public class Account : AggregateRoot
         string name,
         string address,
         string phone,
+        string bankCode,
         string bankName,
         string agencyNumber,
         string accountNumber,
@@ -64,6 +68,7 @@ public class Account : AggregateRoot
         Name = name;
         Address = address;
         Phone = phone;
+        BankCode = bankCode;
         BankName = bankName;
         AgencyNumber = agencyNumber;
         AccountNumber = accountNumber;
@@ -86,6 +91,7 @@ public class Account : AggregateRoot
 
         DomainValidation.NotNullOrEmpty(Phone, nameof(Phone));
 
+        DomainValidation.NotNullOrEmpty(BankCode, nameof(BankCode));
         DomainValidation.NotNullOrEmpty(BankName, nameof(BankName));
         DomainValidation.MaxLength(BankName, 255, nameof(BankName));
         DomainValidation.NotNullOrEmpty(AgencyNumber, nameof(AgencyNumber));

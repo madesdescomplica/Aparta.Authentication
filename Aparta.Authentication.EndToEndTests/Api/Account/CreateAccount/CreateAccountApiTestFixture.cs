@@ -1,4 +1,4 @@
-﻿using Aparta.Authentication.UseCases.UseCases.Account.CreateAccount;
+﻿using Aparta.Authentication.UseCases.Account.CreateAccount;
 
 using Aparta.Authentication.EndToEndTests.Api.Account.Common;
 
@@ -23,6 +23,7 @@ public class CreateAccountApiTestFixture
             GetValidName(),
             GetValidAddress(),
             GetValidPhone(),
+            GetValidBankCode(),
             GetValidBankName(),
             GetValidAgencyNumber(),
             GetValidAccountNumber(),

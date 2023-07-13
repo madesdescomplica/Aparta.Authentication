@@ -37,7 +37,7 @@ public class AccountTestFixture : BaseFixture
             _ => throw new NotImplementedException()
         };
 
-    public string GetValidCategoryName()
+    public string GetValidAccountName()
     {
         var accountName = "";
 
@@ -55,6 +55,9 @@ public class AccountTestFixture : BaseFixture
 
     public string GetValidPhone()
         => Faker.Phone.PhoneNumber();
+
+    public string GetValidBankCode()
+        => Faker.Random.Int(1, 999).ToString();
 
     public string GetValidBankName()
     {
@@ -94,15 +97,24 @@ public class AccountTestFixture : BaseFixture
 
     public DomainEntity.Account GetValidAccount(ClientType clientType)
         => new(
-            clientType,
-            GetRandomDocumentNumber(clientType),
-            GetValidCategoryName(),
-            GetValidAddress(),
-            GetValidPhone(),
-            GetValidBankName(),
-            GetValidAgencyNumber(),
-            GetValidAccountNumber(),
-            GetRandomTaxType(),
-            GetValidTaxRate()
+            clientType: clientType,
+            documentNumber: GetRandomDocumentNumber(clientType),
+            name: GetValidAccountName(),
+            address: GetValidAddress(),
+            phone: GetValidPhone(),
+            bankCode: GetValidBankCode(),
+            bankName: GetValidBankName(),
+            agencyNumber: GetValidAgencyNumber(),
+            accountNumber: GetValidAccountNumber(),
+            taxType: GetRandomTaxType(),
+            taxRate: GetValidTaxRate()
         );
+
+    public string GetInvalidTooLongName()
+    {
+        var tooLongNameForAccount = Faker.Person.FullName;
+        while (tooLongNameForAccount.Length <= 255)
+            tooLongNameForAccount = $"{tooLongNameForAccount} {Faker.Person.FullName}";
+        return tooLongNameForAccount;
+    }
 }

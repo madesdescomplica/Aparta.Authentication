@@ -9,6 +9,7 @@ public class UpdateAccountApiInput
     public string Name { get; set; }
     public string Address { get; set; }
     public string Phone { get; set; }
+    public string BankCode { get; set; }
     public string BankName { get; set; }
     public string AgencyNumber { get; set; }
     public string AccountNumber { get; set; }
@@ -21,6 +22,7 @@ public class UpdateAccountApiInput
         string name,
         string address,
         string phone,
+        string bankCode,
         string bankName,
         string agencyNumber,
         string accountNumber,
@@ -33,6 +35,7 @@ public class UpdateAccountApiInput
         Name = name;
         Address = address;
         Phone = phone;
+        BankCode = bankCode;
         BankName = bankName;
         AgencyNumber = agencyNumber;
         AccountNumber = accountNumber;

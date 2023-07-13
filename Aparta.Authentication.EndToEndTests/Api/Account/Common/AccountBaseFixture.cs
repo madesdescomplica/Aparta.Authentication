@@ -60,6 +60,10 @@ public class AccountBaseFixture
     public string GetValidPhone()
         => Faker.Phone.PhoneNumber();
 
+    public string GetValidBankCode()
+        => Faker.Random.Int(1, 999).ToString();
+
+
     public string GetValidBankName()
     {
         var bankName = "";
@@ -103,6 +107,7 @@ public class AccountBaseFixture
             GetValidName(),
             GetValidAddress(),
             GetValidPhone(),
+            GetValidBankCode(),
             GetValidBankName(),
             GetValidAgencyNumber(),
             GetValidAccountNumber(),

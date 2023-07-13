@@ -1,5 +1,5 @@
 ﻿using Aparta.Authentication.UseCases.Exceptions;
-using UseCase = Aparta.Authentication.UseCases.UseCases.Account.GetAccount;
+using UseCase = Aparta.Authentication.UseCases.Account.GetAccount;
 
 using Aparta.Authentication.Infra.Data.EF.Repositories;
 
@@ -38,6 +38,7 @@ public class GetAccountTest
         output.Name.Should().Be(account.Name);
         output.Address.Should().Be(account.Address);
         output.Phone.Should().Be(account.Phone);
+        output.BankCode.Should().Be(account.BankCode);
         output.BankName.Should().Be(account.BankName);
         output.AgencyNumber.Should().Be(account.AgencyNumber);
         output.AccountNumber.Should().Be(account.AccountNumber);

@@ -1,6 +1,6 @@
 ﻿using Aparta.Authentication.Domain.Enum;
 
-namespace Aparta.Authentication.UseCases.UseCases.Account.Common;
+namespace Aparta.Authentication.UseCases.Account.Common;
 
 public class AccountModelOutput
 {
@@ -10,6 +10,7 @@ public class AccountModelOutput
     public string Name { get; set; }
     public string Address { get; set; }
     public string Phone { get; set; }
+    public string BankCode { get; set; }
     public string BankName { get; set; }
     public string AgencyNumber { get; set; }
     public string AccountNumber { get; set; }
@@ -24,6 +25,7 @@ public class AccountModelOutput
         string name,
         string address,
         string phone,
+        string bankCode,
         string bankName,
         string agencyNumber,
         string accountNumber,
@@ -38,6 +40,7 @@ public class AccountModelOutput
         Name = name;
         Address = address;
         Phone = phone;
+        BankCode = bankCode;
         BankName = bankName;
         AgencyNumber = agencyNumber;
         AccountNumber = accountNumber;
@@ -54,6 +57,7 @@ public class AccountModelOutput
             name: account.Name,
             address: account.Address,
             phone: account.Phone,
+            bankCode: account.BankCode,
             bankName: account.BankName,
             agencyNumber: account.AgencyNumber,
             accountNumber: account.AccountNumber,
